@@ -108,7 +108,7 @@
                     transparent 50%
                 );
 
-            background-attachment: fixed;
+     
         }
 
         body.modal-open {
@@ -222,10 +222,7 @@
             top: 0;
             z-index: 100;
 
-            background: rgba(11, 15, 25, 0.85);
-
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(11, 15, 25, 0.97);
 
             padding: 1rem;
 
@@ -519,7 +516,7 @@
 
         .about-card {
             background:
-                rgba(30, 41, 59, 0.4);
+                rgba(30, 41, 59, 0.95);
 
             border:
                 1px solid rgba(129, 140, 248, 0.2);
@@ -527,8 +524,6 @@
             border-radius: 16px;
 
             padding: 1.5rem;
-
-            backdrop-filter: blur(12px);
 
             line-height: 1.8;
 
@@ -911,9 +906,8 @@
                 rgba(30, 41, 59, 0.85);
 
             border:
-                1px solid rgba(129, 140, 248, 0.4);
+                1px solid rgba(129, 140, 248, 0.97);
 
-            backdrop-filter: blur(12px);
 
             border-radius: 30px;
 
@@ -1349,6 +1343,59 @@
                 transition-duration: 0.01ms !important;
             }
         }
+
+      
+/* OPTIMASI PERFORMA HP */
+@media (max-width: 768px) {
+    .sticky-nav-wrapper,
+    .nav-pill,
+    .quote-container,
+    .hero-photo-section,
+    .student-list-item,
+    .card,
+    .audio-player,
+    footer {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    .sticky-nav-wrapper {
+        background: rgba(11, 15, 25, 0.97);
+    }
+
+    .nav-pill {
+        background: rgba(30, 41, 59, 0.95);
+    }
+
+    .quote-container,
+    .hero-photo-section,
+    .student-list-item,
+    .card {
+        background: rgba(30, 41, 59, 0.88);
+    }
+
+    .audio-player {
+        background: rgba(30, 41, 59, 0.97);
+    }
+
+    footer {
+        background: rgba(15, 23, 42, 0.97);
+    }
+}
+
+/* Nonaktifkan gerakan hover pada layar sentuh */
+@media (hover: none) {
+    .card-link:hover .card,
+    .card-link:hover img,
+    .hero-photo-wrapper:hover img,
+    .student-list-item:hover,
+    .detail-btn:hover,
+    .nav-pill:hover {
+        transform: none;
+    }
+}
+
+      
     </style>
 </head>
 
@@ -1490,6 +1537,7 @@
 
         </div>
 
+      
            <!-- =====================================================
              TENTANG KELAS
         ====================================================== -->
@@ -2640,35 +2688,36 @@
            SCROLL TOP
         ======================================================= */
 
-        const scrollTopBtn =
-            document.getElementById(
-                "scrollTopBtn"
-            );
+        
+const scrollTopBtn =
+    document.getElementById("scrollTopBtn");
 
+let scrollScheduled = false;
 
-        function updateScrollButton() {
+function updateScrollButton() {
+    scrollTopBtn.classList.toggle(
+        "show",
+        window.scrollY > 300
+    );
+}
 
-            if (window.scrollY > 300) {
+function handleScroll() {
+    if (scrollScheduled) return;
 
-                scrollTopBtn.classList.add(
-                    "show"
-                );
+    scrollScheduled = true;
 
-            } else {
+    requestAnimationFrame(() => {
+        updateScrollButton();
+        scrollScheduled = false;
+    });
+}
 
-                scrollTopBtn.classList.remove(
-                    "show"
-                );
+window.addEventListener(
+    "scroll",
+    handleScroll,
+    { passive: true }
+);
 
-            }
-        }
-
-
-        window.addEventListener(
-            "scroll",
-            updateScrollButton,
-            { passive: true }
-        );
 
 
         scrollTopBtn.addEventListener(
