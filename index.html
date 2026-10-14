@@ -2518,6 +2518,57 @@
 
         ];
 
+      
+/* PRELOAD FOTO PROFIL SISWA SECARA BERTAHAP */
+const studentPhotoCache = new Map();
+const studentPhotoQueue = [];
+let isPreloadingStudentPhotos = false;
+
+function preloadStudentPhoto(src) {
+    if (!src || studentPhotoCache.has(src)) return;
+
+    // Hindari foto yang sama masuk antrean berulang
+    if (studentPhotoQueue.includes(src)) return;
+
+    studentPhotoQueue.push(src);
+    processStudentPhotoQueue();
+}
+
+function processStudentPhotoQueue() {
+    if (isPreloadingStudentPhotos) return;
+
+    const src = studentPhotoQueue.shift();
+    if (!src) return;
+
+    isPreloadingStudentPhotos = true;
+
+    const img = new Image();
+
+    img.onload = () => {
+        studentPhotoCache.set(src, img);
+        isPreloadingStudentPhotos = false;
+        processStudentPhotoQueue();
+    };
+
+    img.onerror = () => {
+        isPreloadingStudentPhotos = false;
+        processStudentPhotoQueue();
+    };
+
+    img.src = src;
+}
+
+// Mulai memuat foto secara bertahap
+// ketika browser sudah selesai memproses halaman
+window.addEventListener("load", () => {
+    studentsData.forEach(student => {
+        if (student.img) {
+            preloadStudentPhoto(student.img);
+        }
+    });
+});
+
+
               /* =======================================================
            MODAL
         ======================================================= */
@@ -2548,7 +2599,20 @@
 
         let lastFocusedButton = null;
 
+const studentImageCache = new Map();
 
+function preloadStudentImage(src) {
+    if (!src || studentImageCache.has(src)) return;
+
+    const img = new Image();
+
+    img.onload = () => {
+        studentImageCache.set(src, img);
+    };
+
+    img.src = src;
+}
+      
         function openStudentModal(index, button) {
 
             if (
@@ -2581,8 +2645,16 @@
             modalImg.alt =
                 `Foto ${student.name}`;
 
-            modalImg.src =
-                student.img;
+            
+const cachedPhoto = studentPhotoCache.get(student.img);
+
+if (cachedPhoto) {
+    modalImg.src = cachedPhoto.src;
+} else {
+    modalImg.src = student.img;
+    preloadStudentPhoto(student.img);
+}
+
 
             modalOverlay.classList.add("active");
 
