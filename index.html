@@ -1400,10 +1400,176 @@
 
       
     </style>
+
+  
+<!-- SPLASH SCREEN XII IPS-1 -->
+<style>
+  #classSplash {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at center,
+        rgba(115, 55, 190, 0.20) 0%,
+        transparent 55%),
+      #08090d;
+    color: #fff;
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 0.75s ease,
+      visibility 0.75s ease;
+  }
+
+  #classSplash.splash-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  #classSplash .splash-glow {
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    background: #8b45ff;
+    filter: blur(100px);
+    opacity: 0.25;
+    animation: splashGlow 2.4s ease-in-out infinite alternate;
+  }
+
+  #classSplash .splash-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    text-align: center;
+  }
+
+  #classSplash .splash-logo {
+    width: 112px;
+    height: 112px;
+    object-fit: contain;
+    border-radius: 26px;
+    opacity: 0;
+    transform: scale(0.78);
+    filter: drop-shadow(0 0 0 rgba(153, 83, 255, 0));
+    animation: splashLogoIn 0.9s ease-out 0.15s forwards;
+  }
+
+  #classSplash .splash-title {
+    margin: 28px 0 0;
+    font-size: clamp(21px, 6vw, 28px);
+    font-weight: 800;
+    letter-spacing: 2px;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: splashTextIn 0.7s ease-out 0.65s forwards;
+  }
+
+  #classSplash .splash-subtitle {
+    margin-top: 10px;
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    color: #bba2e8;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: splashTextIn 0.7s ease-out 0.95s forwards;
+  }
+
+  #classSplash .splash-line {
+    width: 0;
+    height: 2px;
+    margin-top: 26px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #7138d5, #d8b8ff);
+    box-shadow: 0 0 12px #914cff;
+    animation: splashLineIn 0.65s ease-out 1.15s forwards;
+  }
+
+  #classSplash .splash-footer {
+    position: absolute;
+    bottom: 35px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #777181;
+    opacity: 0;
+    animation: splashTextIn 0.7s ease-out 1.3s forwards;
+  }
+
+  @keyframes splashLogoIn {
+    to {
+      opacity: 1;
+      transform: scale(1);
+      filter: drop-shadow(0 0 24px rgba(153, 83, 255, 0.65));
+    }
+  }
+
+  @keyframes splashTextIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes splashGlow {
+    from { transform: scale(0.85); opacity: 0.16; }
+    to   { transform: scale(1.15); opacity: 0.34; }
+  }
+
+  @keyframes splashLineIn {
+    to { width: 100px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #classSplash *,
+    #classSplash {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+
+  
 </head>
 
 <body>
 
+
+<!-- SPLASH SCREEN XII IPS-1 -->
+<div id="classSplash" role="status" aria-label="Memuat aplikasi">
+  <div class="splash-glow"></div>
+
+  <div class="splash-content">
+    <img
+      class="splash-logo"
+      src="icon-512.png"
+      alt="Logo XII IPS-1"
+    />
+
+    <h1 class="splash-title">XII IPS-1</h1>
+
+    <p class="splash-subtitle">
+      MAN 1 BANGKA
+    </p>
+
+    <div class="splash-line"></div>
+  </div>
+
+  <div class="splash-footer">
+    LENSA KEBERSAMAAN
+  </div>
+</div>
+
+  
     <!-- =========================================================
          HEADER
     ========================================================= -->
@@ -3232,5 +3398,31 @@ window.addEventListener(
 
     </script>
 
+
+<script>
+  (() => {
+    const splash = document.getElementById("classSplash");
+
+    if (!splash) return;
+
+    function hideSplash() {
+      setTimeout(() => {
+        splash.classList.add("splash-hidden");
+
+        setTimeout(() => {
+          splash.remove();
+        }, 800);
+      }, 1500);
+    }
+
+    if (document.readyState === "complete") {
+      hideSplash();
+    } else {
+      window.addEventListener("load", hideSplash, { once: true });
+    }
+  })();
+</script>
+
+  
 </body>
 </html>
