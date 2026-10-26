@@ -163,7 +163,7 @@ button:disabled{cursor:not-allowed;opacity:.7}
         <i class="fa-solid fa-circle-check"></i>
         <h3>Saran Berhasil Terkirim!</h3>
         <p>Terima kasih, masukan dan aspirasi Anda telah diterima untuk kemajuan kelas kita bersama.</p>
-        <button onclick="location.reload()" style="margin-top: 20px; width: auto; padding: 10px 20px;">Kirim Saran Lain</button>
+        <button type="button" id="newSuggestionBtn" style="margin-top: 20px; width: auto; padding: 10px 20px;">Kirim Saran Lain</button>
     </div>
 </div>
 
@@ -234,10 +234,27 @@ button:disabled{cursor:not-allowed;opacity:.7}
 </script>
 
 <script>
-(function(){
-const name=document.getElementById('reporterName'),anon=document.getElementById('isAnonymous'),msg=document.getElementById('fullMessage'),count=document.getElementById('charCount');
-function sync(){name.disabled=anon.checked;if(anon.checked)name.value='';}
-anon.addEventListener('change',sync);sync();msg.addEventListener('input',()=>count.textContent=msg.value.length);
+(function () {
+  const nameInput = document.getElementById('reporterName');
+  const anonymousInput = document.getElementById('isAnonymous');
+  const messageInput = document.getElementById('fullMessage');
+  const count = document.getElementById('charCount');
+  const newSuggestionButton = document.getElementById('newSuggestionBtn');
+
+  function syncAnonymousState() {
+    if (!nameInput || !anonymousInput) return;
+    nameInput.disabled = anonymousInput.checked;
+    if (anonymousInput.checked) nameInput.value = '';
+  }
+
+  if (anonymousInput) anonymousInput.addEventListener('change', syncAnonymousState);
+  if (messageInput && count) {
+    messageInput.addEventListener('input', function () { count.textContent = String(messageInput.value.length); });
+  }
+  if (newSuggestionButton) {
+    newSuggestionButton.addEventListener('click', function () { window.location.reload(); });
+  }
+  syncAnonymousState();
 })();
 </script>
 </body>

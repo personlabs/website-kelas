@@ -38,7 +38,7 @@
         }
         header { text-align: center; padding: 3.5rem 1.5rem 2.5rem; position: relative; animation: pageFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .header-tag { display: inline-block; padding: 6px 16px; background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(129, 140, 248, 0.3); color: #818cf8; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; letter-spacing: 0.5px; }
-        header h1 { font-size: 2.3rem; font-weight: 800; background: linear-gradient(135deg, #ffffff 0%, #818cf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+        header h1 { font-size: 2.3rem; font-weight: 800; background: linear-gradient(135deg, #ffffff 0%, #818cf8 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
         header p { color: #94a3b8; font-size: 1rem; margin-bottom: 1.5rem; }
         .back-btn { display: inline-flex; align-items: center; gap: 8px; color: #818cf8; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 10px 20px; background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(129, 140, 248, 0.3); border-radius: 30px; backdrop-filter: blur(10px); transition: all 0.3s ease; }
         .back-btn:hover { background: rgba(99, 102, 241, 0.2); color: #ffffff; border-color: rgba(129, 140, 248, 0.6); transform: translateX(-4px); }
@@ -219,12 +219,13 @@ a:focus-visible,button:focus-visible{outline:2px solid #a5b4fc;outline-offset:3p
         function revealOnScroll() {
             const reveals = document.querySelectorAll('.reveal');
             const windowHeight = window.innerHeight;
-            reveals.forEach((element, index) => {
+            for (let index = 0; index < reveals.length; index++) {
+                const element = reveals[index];
                 const elementTop = element.getBoundingClientRect().top;
                 if (elementTop < windowHeight - 100) {
-                    setTimeout(() => { element.classList.add('active'); }, index * 100); 
+                    setTimeout(function () { element.classList.add('active'); }, index * 100);
                 }
-            });
+            }
         }
         window.addEventListener('scroll', revealOnScroll);
         window.addEventListener('load', revealOnScroll);
@@ -239,7 +240,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #a5b4fc;outline-offset:3p
             }
         });
 
-        scrollTopBtn.addEventListener('click', () => {
+        if (scrollTopBtn) scrollTopBtn.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
@@ -278,36 +279,82 @@ a:focus-visible,button:focus-visible{outline:2px solid #a5b4fc;outline-offset:3p
     </script>
 
 <script>
-(function(){
- const items=[...document.querySelectorAll('.photo-item')];
- const photos=items.map((item,i)=>({item,img:item.querySelector('img'),title:item.querySelector('h3')?.textContent||('Foto '+(i+1))})).filter(x=>x.img);
- const lb=document.getElementById('lightbox'), li=document.getElementById('lbImage'), cap=document.getElementById('lbCaption');
- const counter=document.getElementById('albumCounter'); let current=0;
- if(counter) counter.textContent=photos.length+' dokumentasi • Ketuk foto untuk memperbesar';
- function show(i){
-   if(!photos.length)return; current=(i+photos.length)%photos.length;
-   li.src=photos[current].img.currentSrc||photos[current].img.src;
-   li.alt=photos[current].img.alt||photos[current].title;
-   cap.textContent=(current+1)+' / '+photos.length+' — '+photos[current].title;
-   lb.classList.add('open'); document.body.style.overflow='hidden';
- }
- function close(){lb.classList.remove('open');document.body.style.overflow='';}
- photos.forEach((p,i)=>{
-   p.img.addEventListener('click',()=>show(i));
-   p.img.addEventListener('error',()=>p.item.classList.add('image-broken'));
- });
- document.getElementById('lbClose')?.addEventListener('click',close);
- document.getElementById('lbPrev')?.addEventListener('click',()=>show(current-1));
- document.getElementById('lbNext')?.addEventListener('click',()=>show(current+1));
- lb.addEventListener('click',e=>{if(e.target===lb)close()});
- document.addEventListener('keydown',e=>{
-   if(!lb.classList.contains('open'))return;
-   if(e.key==='Escape')close(); if(e.key==='ArrowLeft')show(current-1); if(e.key==='ArrowRight')show(current+1);
- });
- window.addEventListener('scroll',()=>{
-   const h=document.documentElement.scrollHeight-innerHeight;
-   document.getElementById('albumProgress').style.width=(h>0?(scrollY/h*100):0)+'%';
- });
+(function () {
+  const items = document.querySelectorAll('.photo-item');
+  const photos = [];
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const image = item.querySelector('img');
+    if (image) {
+      const heading = item.querySelector('h3');
+      photos.push({
+        item: item,
+        img: image,
+        title: heading ? heading.textContent : 'Foto ' + (i + 1)
+      });
+    }
+  }
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lbImage');
+  const caption = document.getElementById('lbCaption');
+  const counter = document.getElementById('albumCounter');
+  const closeButton = document.getElementById('lbClose');
+  const previousButton = document.getElementById('lbPrev');
+  const nextButton = document.getElementById('lbNext');
+  let current = 0;
+
+  if (counter) {
+    counter.textContent = photos.length + ' dokumentasi • Ketuk foto untuk memperbesar';
+  }
+
+  function showPhoto(index) {
+    if (!lightbox || !lightboxImage || !caption || photos.length === 0) return;
+    current = (index + photos.length) % photos.length;
+    const photo = photos[current];
+    lightboxImage.src = photo.img.currentSrc || photo.img.src;
+    lightboxImage.alt = photo.img.alt || photo.title || ('Foto ' + (current + 1));
+    caption.textContent = (current + 1) + ' / ' + photos.length + ' — ' + photo.title;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  for (let i = 0; i < photos.length; i++) {
+    const photo = photos[i];
+    const photoIndex = i;
+    photo.img.addEventListener('click', function () { showPhoto(photoIndex); });
+    photo.img.addEventListener('error', function () { photo.item.classList.add('image-broken'); });
+  }
+
+  if (closeButton) closeButton.addEventListener('click', closeLightbox);
+  if (previousButton) previousButton.addEventListener('click', function () { showPhoto(current - 1); });
+  if (nextButton) nextButton.addEventListener('click', function () { showPhoto(current + 1); });
+
+  if (lightbox) {
+    lightbox.addEventListener('click', function (event) {
+      if (event.target === lightbox) closeLightbox();
+    });
+  }
+
+  document.addEventListener('keydown', function (event) {
+    if (!lightbox || !lightbox.classList.contains('open')) return;
+    if (event.key === 'Escape') closeLightbox();
+    if (event.key === 'ArrowLeft') showPhoto(current - 1);
+    if (event.key === 'ArrowRight') showPhoto(current + 1);
+  });
+
+  const progress = document.getElementById('albumProgress');
+  window.addEventListener('scroll', function () {
+    if (!progress) return;
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (height > 0 ? (window.scrollY / height * 100) : 0) + '%';
+  }, { passive: true });
 })();
 </script>
 

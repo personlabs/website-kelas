@@ -199,6 +199,7 @@
                     #818cf8 100%
                 );
 
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 
@@ -804,7 +805,8 @@
 
             line-height: 1.5;
 
-            margin-bottom: 1.25rem;
+            margin-top: 1.75rem;
+     margin-bottom: 2rem;
 
             flex-grow: 1;
         }
@@ -1055,8 +1057,9 @@
             max-width: 1100px;
 
             margin:
-                2.5rem auto 0;
+                0 auto;
 
+            /* Jarak dari tombol Bagikan */
             padding-top: 1.25rem;
 
             text-align: center;
@@ -1551,23 +1554,52 @@ body::before {
 }
 .student-list-item.search-hidden { display: none; }
 
-/* Tombol bagikan */
+/* Tombol Bagikan */
+.share-site-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 2.75rem auto 2.75rem;
+  padding: 0 1rem;
+}
+
 .share-site-btn {
+  min-height: 44px;
+  padding: 9px 18px;
   border: 1px solid rgba(129,140,248,.35);
+  border-radius: 999px;
   background: rgba(99,102,241,.13);
   color: #c7d2fe;
-  padding: 9px 14px;
-  border-radius: 999px;
   cursor: pointer;
-  font-weight: 700;
+  font: inherit;
   font-size: .82rem;
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  transition: .2s ease;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
 }
-.share-site-btn:hover { transform: translateY(-2px); background: rgba(99,102,241,.25); }
-.share-site-btn:focus-visible { outline: 2px solid #818cf8; outline-offset: 3px; }
+.share-site-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(99,102,241,.25);
+  border-color: rgba(129,140,248,.55);
+}
+.share-site-btn:focus-visible {
+  outline: 2px solid #818cf8;
+  outline-offset: 3px;
+}
+@media (max-width: 640px) {
+  .share-site-wrap {
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    padding: 0 1.25rem;
+  }
+  .share-site-btn {
+    width: min(100%, 220px);
+  }
+}
 
 /* Reveal animation */
 .reveal-on-scroll {
@@ -1590,7 +1622,12 @@ body::before {
   .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
 }
 
-    </style>
+    .image-load-error {
+  opacity: .65;
+  filter: grayscale(.35);
+}
+
+</style>
 
   
 <!-- SPLASH SCREEN XII IPS-1 -->
@@ -1727,9 +1764,40 @@ body::before {
       transition-duration: 0.01ms !important;
     }
   }
+
+/* V3 — mobile navigation, accessibility & polish */
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+.nav-inner { width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.nav-inner::-webkit-scrollbar { display: none; }
+.quick-nav { width: max-content; min-width: 100%; flex-wrap: nowrap; justify-content: center; padding: 0 4px; }
+.nav-pill { flex: 0 0 auto; white-space: nowrap; min-height: 42px; }
+section[id] { scroll-margin-top: 92px; }
+@media (max-width: 700px) {
+  .sticky-nav-wrapper { padding: .65rem .35rem; }
+  .nav-inner { justify-content: flex-start; }
+  .quick-nav { min-width: max-content; justify-content: flex-start; padding: 0 .25rem; }
+  .nav-pill { padding: 9px 14px; font-size: .82rem; }
+  .class-stats { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .stat-card { min-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
 </style>
 
   
+
+<style>
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 2px solid #a5b4fc;
+    outline-offset: 3px;
+  }
+  .audio-player { max-width: calc(100vw - 20px); }
+  @media (max-width: 640px) {
+    .audio-player { left: 10px; right: 10px; width: auto; }
+  }
+</style>
 </head>
 
 <body>
@@ -1886,7 +1954,7 @@ body::before {
                     loading="eager"
                     fetchpriority="high"
                     decoding="async"
-                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80';"
+                    data-fallback="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80"
                 >
 
             </div>
@@ -2166,7 +2234,7 @@ body::before {
                                 alt="Dokumentasi kegiatan XII IPS-1"
                                 loading="lazy"
                                 decoding="async"
-                                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80';"
+                    data-fallback="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80"
                             >
 
                         </div>
@@ -2203,7 +2271,7 @@ body::before {
                                 alt="Keseharian siswa XII IPS-1"
                                 loading="lazy"
                                 decoding="async"
-                                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80';"
+                    data-fallback="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80"
                             >
 
                         </div>
@@ -2241,7 +2309,7 @@ body::before {
                                 alt="Hari Batik Nasional XII IPS-1"
                                 loading="lazy"
                                 decoding="async"
-                                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&w=800&q=80';"
+                    data-fallback="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&w=800&q=80"
                             >
 
                         </div>
@@ -2278,7 +2346,7 @@ body::before {
                                 alt="Classmeeting XII IPS-1"
                                 loading="lazy"
                                 decoding="async"
-                                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80';"
+                    data-fallback="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80"
                             >
 
                         </div>
@@ -2316,7 +2384,7 @@ body::before {
                                 alt="Buka puasa bersama XII IPS-1"
                                 loading="lazy"
                                 decoding="async"
-                                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80';"
+                    data-fallback="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80"
                             >
 
                         </div>
@@ -2432,7 +2500,7 @@ body::before {
                     src=""
                     alt="Foto siswa"
                     decoding="async"
-                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';"
+                    data-fallback="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"
                 >
 
                 <button
@@ -3703,8 +3771,8 @@ window.addEventListener(
   const copyright = document.querySelector('.copyright');
   if (copyright && !document.getElementById('shareSiteBtn')) {
     const wrap = document.createElement('div');
-    wrap.style.marginBottom = '1rem';
-    wrap.innerHTML = `<button type="button" class="share-site-btn" id="shareSiteBtn"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Bagikan Website</button>`;
+    wrap.className = 'share-site-wrap';
+    wrap.innerHTML = `<button type="button" class="share-site-btn" id="shareSiteBtn"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Bagikan</button>`;
     copyright.parentNode.insertBefore(wrap, copyright);
 
     document.getElementById('shareSiteBtn').addEventListener('click', async () => {
@@ -3743,6 +3811,20 @@ window.addEventListener(
     revealTargets.forEach(el => observer.observe(el));
   }
 
+  // Gambar: gunakan fallback hanya jika gambar utama gagal dimuat.
+  document.querySelectorAll('img[data-fallback]').forEach(img => {
+    img.addEventListener('error', function handleImageError() {
+      const fallback = img.getAttribute('data-fallback');
+      const alreadyFallback = img.getAttribute('data-fallback-used') === '1';
+      if (!fallback || alreadyFallback) {
+        img.classList.add('image-load-error');
+        return;
+      }
+      img.setAttribute('data-fallback-used', '1');
+      img.src = fallback;
+    });
+  });
+
   // Escape closes the existing student modal.
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
@@ -3753,6 +3835,8 @@ window.addEventListener(
   });
 })();
 </script>
+
+
 
 </body>
 </html>
