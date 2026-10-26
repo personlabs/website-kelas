@@ -1265,8 +1265,18 @@
                 padding: 0.75rem;
             }
 
+            .nav-inner {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-left: 2px;
+                padding-right: 2px;
+                -webkit-overflow-scrolling: touch;
+            }
+
             .quick-nav {
                 gap: 7px;
+                justify-content: flex-start;
+                flex-wrap: nowrap;
             }
 
             .nav-pill {
@@ -1399,6 +1409,187 @@
 }
 
       
+
+
+/* =========================================================
+   V2 PREMIUM ENHANCEMENTS
+========================================================= */
+:root {
+  --accent: #818cf8;
+  --accent-strong: #6366f1;
+  --glass: rgba(30, 41, 59, 0.62);
+  --border-soft: rgba(129, 140, 248, 0.22);
+}
+
+html { scroll-padding-top: 105px; }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(99,102,241,.08), transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(236,72,153,.06), transparent 30%);
+}
+
+#readingProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  z-index: 1000000;
+  background: linear-gradient(90deg, #6366f1, #818cf8, #ec4899);
+  box-shadow: 0 0 14px rgba(129,140,248,.75);
+  transition: width .08s linear;
+}
+
+.header-tag {
+  box-shadow: 0 0 25px rgba(99,102,241,.08);
+}
+
+.nav-inner { overflow-x: auto; scrollbar-width: none; }
+.nav-inner::-webkit-scrollbar { display: none; }
+.quick-nav { min-width: max-content; }
+
+.section-header {
+  position: relative;
+}
+.section-header::after {
+  content: "";
+  height: 3px;
+  width: 48px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #6366f1, #ec4899);
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+}
+
+/* Statistik kelas */
+.class-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 0 auto 2.5rem;
+  max-width: 760px;
+}
+.stat-card {
+  padding: 1rem .8rem;
+  text-align: center;
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  background: var(--glass);
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+}
+.stat-number {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #f8fafc;
+}
+.stat-label {
+  display: block;
+  margin-top: 3px;
+  font-size: .72rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+/* Pencarian anggota */
+.student-tools {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.student-search-wrap {
+  flex: 1 1 260px;
+  position: relative;
+}
+.student-search-wrap i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  pointer-events: none;
+}
+#studentSearch {
+  width: 100%;
+  border: 1px solid rgba(129,140,248,.22);
+  background: rgba(30,41,59,.55);
+  color: #f8fafc;
+  border-radius: 13px;
+  padding: 11px 14px 11px 40px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+#studentSearch::placeholder { color: #64748b; }
+#studentSearch:focus {
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgba(129,140,248,.12);
+  background: rgba(30,41,59,.75);
+}
+.student-result-count {
+  color: #94a3b8;
+  font-size: .8rem;
+  white-space: nowrap;
+}
+.student-empty {
+  display: none;
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #94a3b8;
+  border: 1px dashed rgba(129,140,248,.25);
+  border-radius: 14px;
+}
+.student-list-item.search-hidden { display: none; }
+
+/* Tombol bagikan */
+.share-site-btn {
+  border: 1px solid rgba(129,140,248,.35);
+  background: rgba(99,102,241,.13);
+  color: #c7d2fe;
+  padding: 9px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: .82rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: .2s ease;
+}
+.share-site-btn:hover { transform: translateY(-2px); background: rgba(99,102,241,.25); }
+.share-site-btn:focus-visible { outline: 2px solid #818cf8; outline-offset: 3px; }
+
+/* Reveal animation */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .65s ease, transform .65s ease;
+}
+.reveal-on-scroll.revealed { opacity: 1; transform: none; }
+
+@media (max-width: 640px) {
+  .class-stats { gap: 8px; }
+  .stat-card { padding: .85rem .5rem; }
+  .stat-number { font-size: 1.1rem; }
+  .stat-label { font-size: .62rem; }
+  .student-tools { align-items: stretch; }
+  .student-result-count { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
+}
+
     </style>
 
   
@@ -3424,5 +3615,144 @@ window.addEventListener(
 </script>
 
   
+
+<script>
+/* =========================================================
+   V2 PREMIUM ENHANCEMENTS — no external dependency
+========================================================= */
+(() => {
+  'use strict';
+
+  // Reading progress
+  const progress = document.createElement('div');
+  progress.id = 'readingProgress';
+  progress.setAttribute('aria-hidden', 'true');
+  document.body.prepend(progress);
+
+  const updateProgress = () => {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    progress.style.width = `${max > 0 ? (window.scrollY / max) * 100 : 0}%`;
+  };
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  // Class statistics
+  const hero = document.querySelector('.hero-photo-section');
+  if (hero) {
+    const stats = document.createElement('div');
+    stats.className = 'class-stats';
+    stats.innerHTML = `
+      <div class="stat-card"><span class="stat-number" id="studentCountStat">29</span><span class="stat-label">Siswa</span></div>
+      <div class="stat-card"><span class="stat-number">1</span><span class="stat-label">Kelas</span></div>
+      <div class="stat-card"><span class="stat-number">∞</span><span class="stat-label">Kenangan</span></div>
+    `;
+    hero.insertAdjacentElement('afterend', stats);
+  }
+
+  // Search and count for student list
+  const list = document.querySelector('.students-list-container');
+  const profileSection = document.getElementById('profil');
+  if (list && profileSection) {
+    const items = [...list.querySelectorAll('.student-list-item')];
+    const header = profileSection.querySelector('.section-header');
+    if (header) {
+      const tools = document.createElement('div');
+      tools.className = 'student-tools';
+      tools.innerHTML = `
+        <div class="student-search-wrap">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input id="studentSearch" type="search" autocomplete="off"
+                 placeholder="Cari nama siswa..." aria-label="Cari nama siswa">
+        </div>
+        <span class="student-result-count" id="studentResultCount">${items.length} siswa</span>
+      `;
+      header.insertAdjacentElement('afterend', tools);
+    }
+
+    const empty = document.createElement('div');
+    empty.className = 'student-empty';
+    empty.id = 'studentEmpty';
+    empty.innerHTML = '<i class="fa-regular fa-face-frown" aria-hidden="true"></i><br>Tidak ada nama yang cocok.';
+    list.appendChild(empty);
+
+    const search = document.getElementById('studentSearch');
+    const count = document.getElementById('studentResultCount');
+    const emptyState = document.getElementById('studentEmpty');
+
+    const filterStudents = () => {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+      items.forEach(item => {
+        const name = item.querySelector('.student-name')?.textContent.toLowerCase() || '';
+        const match = !query || name.includes(query);
+        item.classList.toggle('search-hidden', !match);
+        if (match) visible++;
+      });
+      count.textContent = `${visible} dari ${items.length} siswa`;
+      emptyState.style.display = visible ? 'none' : 'block';
+    };
+    search.addEventListener('input', filterStudents);
+
+    const stat = document.getElementById('studentCountStat');
+    if (stat) stat.textContent = items.length;
+  }
+
+  // Add a share button to the footer without changing existing content.
+  const copyright = document.querySelector('.copyright');
+  if (copyright && !document.getElementById('shareSiteBtn')) {
+    const wrap = document.createElement('div');
+    wrap.style.marginBottom = '1rem';
+    wrap.innerHTML = `<button type="button" class="share-site-btn" id="shareSiteBtn"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Bagikan Website</button>`;
+    copyright.parentNode.insertBefore(wrap, copyright);
+
+    document.getElementById('shareSiteBtn').addEventListener('click', async () => {
+      const shareData = {
+        title: document.title,
+        text: 'Lensa Kebersamaan XII IPS-1 MAN 1 Bangka',
+        url: window.location.href
+      };
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText(window.location.href);
+          const btn = document.getElementById('shareSiteBtn');
+          const old = btn.innerHTML;
+          btn.innerHTML = '<i class="fa-solid fa-check"></i> Link disalin';
+          setTimeout(() => { btn.innerHTML = old; }, 1800);
+        }
+      } catch (_) { /* dibatalkan pengguna */ }
+    });
+  }
+
+  // Reveal sections/cards as they enter the viewport.
+  const revealTargets = document.querySelectorAll('.section-space, .class-banner, .class-stats, .hero-photo-section');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    revealTargets.forEach(el => el.classList.add('reveal-on-scroll'));
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    revealTargets.forEach(el => observer.observe(el));
+  }
+
+  // Escape closes the existing student modal.
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    const modal = document.getElementById('studentModal');
+    if (modal?.classList.contains('active')) {
+      document.getElementById('modalCloseBtn')?.click();
+    }
+  });
+})();
+</script>
+
 </body>
 </html>

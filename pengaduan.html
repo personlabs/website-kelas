@@ -97,6 +97,18 @@
             color: #58a6ff;
         }
     </style>
+
+<style>
+html{scroll-behavior:smooth}
+body{background-image:radial-gradient(at 0% 0%,rgba(88,166,255,.12),transparent 50%),radial-gradient(at 100% 100%,rgba(63,185,80,.08),transparent 50%)}
+.container{border:1px solid rgba(255,255,255,.07);backdrop-filter:blur(14px)}
+.form-hint{display:block;color:#8b949e;font-size:12px;margin-top:6px}
+.char-count{text-align:right;color:#8b949e;font-size:12px;margin-top:5px}
+#fullMessage{min-height:150px}
+#reporterName:disabled{opacity:.5}
+button:disabled{cursor:not-allowed;opacity:.7}
+@media(max-width:640px){body{padding:12px}.container{padding:22px 18px;border-radius:18px}h2{font-size:1.35rem}}
+</style>
 </head>
 <body>
 
@@ -112,8 +124,9 @@
         <!-- Tambahkan action dan method agar Formspree mengenali endpoint -->
         <form id="complaintForm" action="https://formspree.io/f/xqpeqenv" method="POST">
             <div class="form-group">
-                <label>Nama Pengirim (Opsional)</label>
-                <input type="text" id="reporterName" name="Nama_Pengirim" placeholder="Identitas dirahasiakan jika kosong">
+                <label for="reporterName">Nama Pengirim (Opsional)</label>
+<input type="text" id="reporterName" name="Nama_Pengirim" autocomplete="name" maxlength="60" placeholder="Nama kamu (boleh dikosongkan)">
+<span class="form-hint">Jika mode anonim aktif, nama tidak dikirim.</span>
             </div>
 
             <div class="checkbox-group">
@@ -135,7 +148,8 @@
 
             <div class="form-group">
                 <label>Isi Saran / Aspirasi *</label>
-                <textarea id="fullMessage" name="Isi_Saran" required placeholder="Tuliskan ide, kritik membangun, atau saran Anda di sini..."></textarea>
+                <textarea id="fullMessage" name="Isi_Saran" required minlength="10" maxlength="1000" placeholder="Tuliskan ide, kritik membangun, atau saran Anda di sini..."></textarea>
+<div class="char-count"><span id="charCount">0</span>/1000</div>
             </div>
 
             <button type="submit" id="submitBtn">
@@ -219,5 +233,12 @@
     });
 </script>
 
+<script>
+(function(){
+const name=document.getElementById('reporterName'),anon=document.getElementById('isAnonymous'),msg=document.getElementById('fullMessage'),count=document.getElementById('charCount');
+function sync(){name.disabled=anon.checked;if(anon.checked)name.value='';}
+anon.addEventListener('change',sync);sync();msg.addEventListener('input',()=>count.textContent=msg.value.length);
+})();
+</script>
 </body>
 </html>

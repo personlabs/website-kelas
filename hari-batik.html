@@ -110,8 +110,41 @@
         .reveal { opacity: 0; transform: translateY(40px) scale(0.97); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
     </style>
+
+<style>
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+.img-wrapper{cursor:zoom-in;background:#111827}
+.photo-item img{min-height:120px}
+.photo-item.image-broken .img-wrapper::after{
+  content:"Foto tidak dapat dimuat"; position:absolute; inset:0; display:grid; place-items:center;
+  color:#cbd5e1; font-size:.9rem; background:rgba(2,6,23,.55)
+}
+.album-progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#818cf8,#ec4899);z-index:10000}
+.album-counter{font-size:.8rem;color:#94a3b8;text-align:center;margin:0 0 1.2rem}
+.lightbox{position:fixed;inset:0;background:rgba(2,6,23,.94);z-index:10001;display:none;align-items:center;justify-content:center;padding:18px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:94vw;max-height:84vh;width:auto;height:auto;object-fit:contain;border-radius:14px;box-shadow:0 20px 70px rgba(0,0,0,.65)}
+.lightbox-close,.lightbox-prev,.lightbox-next{position:absolute;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(30,41,59,.8);color:#fff;display:grid;place-items:center;cursor:pointer;font-size:1.1rem}
+.lightbox-close{top:18px;right:18px}.lightbox-prev{left:18px}.lightbox-next{right:18px}
+.lightbox-caption{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:#e2e8f0;background:rgba(15,23,42,.75);padding:8px 14px;border-radius:999px;font-size:.8rem;max-width:80vw;text-align:center}
+@media(max-width:640px){
+ header{padding:2.7rem 1rem 2rem} header h1{font-size:clamp(1.75rem,8vw,2.3rem)}
+ .container{padding:0 1rem 5rem}.photo-caption{padding:1.2rem}.photo-caption h3{font-size:1.08rem}
+ .audio-player{bottom:10px!important;left:10px!important;right:10px!important;justify-content:center}
+ .lightbox-prev{left:8px}.lightbox-next{right:8px}.lightbox-close{top:10px;right:10px}
+}
+a:focus-visible,button:focus-visible{outline:2px solid #a5b4fc;outline-offset:3px}
+</style>
 </head>
 <body>
+<div class="album-progress" id="albumProgress"></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
+<button class="lightbox-close" id="lbClose" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+<button class="lightbox-prev" id="lbPrev" aria-label="Foto sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+<img id="lbImage" alt="Pratinjau foto">
+<button class="lightbox-next" id="lbNext" aria-label="Foto berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
+<div class="lightbox-caption" id="lbCaption"></div></div>
 
     <header>
         <span class="header-tag">Dokumentasi Acara</span>
@@ -122,6 +155,7 @@
 
     <div class="container">
         <div class="photo-list">
+<div class="album-counter" id="albumCounter"></div>
             <div class="photo-item reveal">
                 <div class="img-wrapper"><img src="Batik1.jpg" alt="Foto Bersama"></div>
                 <div class="photo-caption">
@@ -247,5 +281,40 @@
             }
         })();
     </script>
+
+<script>
+(function(){
+ const items=[...document.querySelectorAll('.photo-item')];
+ const photos=items.map((item,i)=>({item,img:item.querySelector('img'),title:item.querySelector('h3')?.textContent||('Foto '+(i+1))})).filter(x=>x.img);
+ const lb=document.getElementById('lightbox'), li=document.getElementById('lbImage'), cap=document.getElementById('lbCaption');
+ const counter=document.getElementById('albumCounter'); let current=0;
+ if(counter) counter.textContent=photos.length+' dokumentasi • Ketuk foto untuk memperbesar';
+ function show(i){
+   if(!photos.length)return; current=(i+photos.length)%photos.length;
+   li.src=photos[current].img.currentSrc||photos[current].img.src;
+   li.alt=photos[current].img.alt||photos[current].title;
+   cap.textContent=(current+1)+' / '+photos.length+' — '+photos[current].title;
+   lb.classList.add('open'); document.body.style.overflow='hidden';
+ }
+ function close(){lb.classList.remove('open');document.body.style.overflow='';}
+ photos.forEach((p,i)=>{
+   p.img.addEventListener('click',()=>show(i));
+   p.img.addEventListener('error',()=>p.item.classList.add('image-broken'));
+ });
+ document.getElementById('lbClose')?.addEventListener('click',close);
+ document.getElementById('lbPrev')?.addEventListener('click',()=>show(current-1));
+ document.getElementById('lbNext')?.addEventListener('click',()=>show(current+1));
+ lb.addEventListener('click',e=>{if(e.target===lb)close()});
+ document.addEventListener('keydown',e=>{
+   if(!lb.classList.contains('open'))return;
+   if(e.key==='Escape')close(); if(e.key==='ArrowLeft')show(current-1); if(e.key==='ArrowRight')show(current+1);
+ });
+ window.addEventListener('scroll',()=>{
+   const h=document.documentElement.scrollHeight-innerHeight;
+   document.getElementById('albumProgress').style.width=(h>0?(scrollY/h*100):0)+'%';
+ });
+})();
+</script>
+
 </body>
 </html>
