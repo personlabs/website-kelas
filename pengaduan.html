@@ -109,66 +109,6 @@ body{background-image:radial-gradient(at 0% 0%,rgba(88,166,255,.12),transparent 
 button:disabled{cursor:not-allowed;opacity:.7}
 @media(max-width:640px){body{padding:12px}.container{padding:22px 18px;border-radius:18px}h2{font-size:1.35rem}}
 </style>
-<style>
-/* ===== UI ENHANCEMENT v2 — tetap 100% di dalam file HTML ===== */
-:root{
-  --ui-bg:#0b0f19;--ui-surface:rgba(15,23,42,.78);--ui-surface-2:rgba(30,41,59,.62);
-  --ui-border:rgba(255,255,255,.10);--ui-text:#f8fafc;--ui-muted:#94a3b8;
-  --ui-primary:#818cf8;--ui-primary-2:#6366f1;--ui-shadow:0 18px 50px rgba(0,0,0,.28);
-}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{transition:background-color .3s ease,color .3s ease}
-::selection{background:rgba(129,140,248,.35);color:#fff}
-button,a,input,textarea,select{font:inherit}
-a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{
- outline:3px solid rgba(129,140,248,.45);outline-offset:3px
-}
-.ui-progress{position:fixed;inset:0 0 auto 0;height:3px;width:0;background:linear-gradient(90deg,#6366f1,#a78bfa,#ec4899);z-index:99999;box-shadow:0 0 12px rgba(129,140,248,.45)}
-.ui-tools{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:9px;z-index:9990}
-.ui-tool{
- width:44px;height:44px;border:1px solid var(--ui-border);border-radius:14px;
- background:rgba(15,23,42,.86);color:var(--ui-text);backdrop-filter:blur(14px);
- display:grid;place-items:center;cursor:pointer;box-shadow:var(--ui-shadow);
- transition:transform .2s ease,background .2s ease,border-color .2s ease
-}
-.ui-tool:hover{transform:translateY(-3px);border-color:rgba(129,140,248,.55);background:rgba(30,41,59,.95)}
-.ui-tool[hidden]{display:none}
-.ui-toast{
- position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;
- padding:11px 16px;border:1px solid var(--ui-border);border-radius:12px;background:rgba(15,23,42,.94);
- color:#fff;backdrop-filter:blur(12px);z-index:10000;transition:.25s ease;font-size:.88rem;box-shadow:var(--ui-shadow)
-}
-.ui-toast.show{opacity:1;transform:translate(-50%,0)}
-.ui-toolbar{
- max-width:900px;margin:0 auto 22px;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;
- background:rgba(15,23,42,.48);border:1px solid var(--ui-border);border-radius:18px;backdrop-filter:blur(14px)
-}
-.ui-search{
- flex:1;min-width:220px;border:1px solid var(--ui-border)!important;border-radius:12px!important;
- background:rgba(2,6,23,.45)!important;color:#fff!important;padding:12px 14px!important
-}
-.ui-count{font-size:.82rem;color:var(--ui-muted);white-space:nowrap}
-.ui-empty{display:none;text-align:center;padding:40px 20px;color:var(--ui-muted);border:1px dashed var(--ui-border);border-radius:18px}
-.ui-empty.show{display:block}
-.photo-item.ui-hidden,.student-list-item.ui-hidden{display:none!important}
-body.ui-light{
- --ui-bg:#f5f7fb;--ui-surface:rgba(255,255,255,.84);--ui-surface-2:rgba(255,255,255,.76);
- --ui-border:rgba(15,23,42,.10);--ui-text:#111827;--ui-muted:#64748b;
- background:#f5f7fb!important;color:#111827!important;
- background-image:radial-gradient(at 0% 0%,rgba(99,102,241,.10) 0,transparent 50%),radial-gradient(at 100% 100%,rgba(236,72,153,.08) 0,transparent 50%)!important
-}
-body.ui-light .ui-tool{background:rgba(255,255,255,.9);color:#111827}
-body.ui-light .ui-toast{background:rgba(255,255,255,.96);color:#111827}
-body.ui-light .ui-toolbar{background:rgba(255,255,255,.7)}
-@media(max-width:600px){
- .ui-tools{right:12px;bottom:12px}.ui-tool{width:42px;height:42px}
- .ui-toolbar{margin-left:12px;margin-right:12px;border-radius:15px}
- .ui-search{min-width:100%}
-}
-@media(prefers-reduced-motion:reduce){
- *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
-}
-</style>
 </head>
 <body>
 
@@ -223,7 +163,7 @@ body.ui-light .ui-toolbar{background:rgba(255,255,255,.7)}
         <i class="fa-solid fa-circle-check"></i>
         <h3>Saran Berhasil Terkirim!</h3>
         <p>Terima kasih, masukan dan aspirasi Anda telah diterima untuk kemajuan kelas kita bersama.</p>
-        <button type="button" id="newSuggestionBtn" style="margin-top: 20px; width: auto; padding: 10px 20px;">Kirim Saran Lain</button>
+        <button onclick="location.reload()" style="margin-top: 20px; width: auto; padding: 10px 20px;">Kirim Saran Lain</button>
     </div>
 </div>
 
@@ -294,107 +234,11 @@ body.ui-light .ui-toolbar{background:rgba(255,255,255,.7)}
 </script>
 
 <script>
-(function () {
-  const nameInput = document.getElementById('reporterName');
-  const anonymousInput = document.getElementById('isAnonymous');
-  const messageInput = document.getElementById('fullMessage');
-  const count = document.getElementById('charCount');
-  const newSuggestionButton = document.getElementById('newSuggestionBtn');
-
-  function syncAnonymousState() {
-    if (!nameInput || !anonymousInput) return;
-    nameInput.disabled = anonymousInput.checked;
-    if (anonymousInput.checked) nameInput.value = '';
-  }
-
-  if (anonymousInput) anonymousInput.addEventListener('change', syncAnonymousState);
-  if (messageInput && count) {
-    messageInput.addEventListener('input', function () { count.textContent = String(messageInput.value.length); });
-  }
-  if (newSuggestionButton) {
-    newSuggestionButton.addEventListener('click', function () { window.location.reload(); });
-  }
-  syncAnonymousState();
-})();
-</script>
-
-<script>
 (function(){
-  'use strict';
-  const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
-  const body=document.body;
-
-  // Progress + tools
-  const progress=document.createElement('div'); progress.className='ui-progress'; progress.setAttribute('aria-hidden','true');
-  document.documentElement.appendChild(progress);
-  const tools=document.createElement('div'); tools.className='ui-tools';
-  tools.innerHTML=`
-    <button class="ui-tool" id="uiTheme" type="button" aria-label="Ganti tema" title="Ganti tema"><i class="fa-solid fa-moon"></i></button>
-    <button class="ui-tool" id="uiShare" type="button" aria-label="Bagikan halaman" title="Bagikan"><i class="fa-solid fa-share-nodes"></i></button>
-    <button class="ui-tool" id="uiTop" type="button" aria-label="Kembali ke atas" title="Kembali ke atas" hidden><i class="fa-solid fa-arrow-up"></i></button>`;
-  body.appendChild(tools);
-  const toast=document.createElement('div'); toast.className='ui-toast'; toast.setAttribute('role','status'); body.appendChild(toast);
-  let toastTimer;
-  function notify(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2200)}
-
-  const saved=localStorage.getItem('kelas-theme');
-  if(saved==='light') body.classList.add('ui-light');
-  const themeBtn=$('#uiTheme');
-  function updateThemeIcon(){themeBtn.innerHTML=body.classList.contains('ui-light')?'<i class="fa-solid fa-sun"></i>':'<i class="fa-solid fa-moon"></i>'}
-  updateThemeIcon();
-  themeBtn.onclick=()=>{body.classList.toggle('ui-light');localStorage.setItem('kelas-theme',body.classList.contains('ui-light')?'light':'dark');updateThemeIcon();notify(body.classList.contains('ui-light')?'Mode terang aktif':'Mode gelap aktif')};
-
-  $('#uiShare').onclick=async()=>{
-    const data={title:document.title,text:document.title,url:location.href};
-    try{if(navigator.share){await navigator.share(data)}else{await navigator.clipboard.writeText(location.href);notify('Link halaman berhasil disalin')}}
-    catch(e){}
-  };
-  const topBtn=$('#uiTop');
-  function onScroll(){
-    const h=document.documentElement.scrollHeight-innerHeight;
-    progress.style.width=(h>0?Math.min(100,scrollY/h*100):0)+'%';
-    topBtn.hidden=scrollY<450;
-  }
-  addEventListener('scroll',onScroll,{passive:true}); onScroll();
-  topBtn.onclick=()=>scrollTo({top:0,behavior:'smooth'});
-
-  // Semua gambar: lazy loading untuk gambar non-hero + decoding async
-  $$('img').forEach((img,i)=>{if(i>0 && !img.loading) img.loading='lazy';img.decoding='async'});
-
-  // Gallery search/filter untuk halaman album
-  const photos=$$('.photo-item');
-  if(photos.length){
-    const container=$('.container')||photos[0].parentElement;
-    const toolbar=document.createElement('div'); toolbar.className='ui-toolbar';
-    toolbar.innerHTML='<input class="ui-search" type="search" placeholder="Cari momen atau keterangan foto…" aria-label="Cari foto"><span class="ui-count"></span>';
-    container.insertBefore(toolbar,photos[0].parentElement);
-    const search=$('.ui-search',toolbar), count=$('.ui-count',toolbar);
-    const empty=document.createElement('div'); empty.className='ui-empty'; empty.textContent='Tidak ada foto yang cocok dengan pencarian.'; container.appendChild(empty);
-    function filter(){
-      const q=search.value.trim().toLowerCase();let shown=0;
-      photos.forEach(p=>{const text=(p.innerText+' '+$$('img',p).map(i=>i.alt).join(' ')).toLowerCase();const ok=!q||text.includes(q);p.classList.toggle('ui-hidden',!ok);if(ok)shown++});
-      count.textContent=shown+' foto';empty.classList.toggle('show',shown===0);
-    }
-    search.addEventListener('input',filter);filter();
-  }
-
-  // Pencarian anggota di halaman utama
-  const students=$$('.student-list-item');
-  if(students.length){
-    const list=students[0].parentElement;
-    const toolbar=document.createElement('div'); toolbar.className='ui-toolbar';
-    toolbar.innerHTML='<input class="ui-search" type="search" placeholder="Cari nama anggota kelas…" aria-label="Cari anggota kelas"><span class="ui-count"></span>';
-    list.parentElement.insertBefore(toolbar,list);
-    const search=$('.ui-search',toolbar),count=$('.ui-count',toolbar);
-    const empty=document.createElement('div');empty.className='ui-empty';empty.textContent='Nama anggota tidak ditemukan.';list.parentElement.appendChild(empty);
-    function filter(){const q=search.value.trim().toLowerCase();let shown=0;students.forEach(p=>{const ok=!q||p.innerText.toLowerCase().includes(q);p.classList.toggle('ui-hidden',!ok);if(ok)shown++});count.textContent=shown+' anggota';empty.classList.toggle('show',shown===0)}
-    search.addEventListener('input',filter);filter();
-  }
-
-  // Keyboard shortcut /: fokus pencarian
-  addEventListener('keydown',e=>{if(e.key==='/' && !/input|textarea|select/i.test(document.activeElement.tagName)){const s=$('.ui-search');if(s){e.preventDefault();s.focus()}}});
+const name=document.getElementById('reporterName'),anon=document.getElementById('isAnonymous'),msg=document.getElementById('fullMessage'),count=document.getElementById('charCount');
+function sync(){name.disabled=anon.checked;if(anon.checked)name.value='';}
+anon.addEventListener('change',sync);sync();msg.addEventListener('input',()=>count.textContent=msg.value.length);
 })();
 </script>
-
 </body>
 </html>
