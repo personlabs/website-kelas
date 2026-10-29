@@ -1,153 +1,501 @@
 <!DOCTYPE html>
 <html lang="id">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Dokumentasi Buka Bersama
-  </title>
-  <!-- Google tag (gtag.js) -->
-  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-8KN5GQ9D0R">
-  </script>
-  <link href="https://fonts.googleapis.com" rel="preconnect"/>
-  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
-  <link href="assets/css/gallery.css" rel="stylesheet"/>
-  <meta content="Dokumentasi kegiatan dan kenangan XII IPS-1 MAN 1 Bangka." name="description"/>
- <script src="assets/js/cleanup-sw.js"></script>
-  <link href="assets/css/site-ui.css" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Buka Bersama</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KN5GQ9D0R"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-8KN5GQ9D0R');
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+            color: #f1f5f9;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.12) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        @keyframes pageFadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        header { text-align: center; padding: 3.5rem 1.5rem 2.5rem; position: relative; animation: pageFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .header-tag { display: inline-block; padding: 6px 16px; background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(129, 140, 248, 0.3); color: #818cf8; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; letter-spacing: 0.5px; }
+        header h1 { font-size: 2.3rem; font-weight: 800; background: linear-gradient(135deg, #ffffff 0%, #818cf8 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+        header p { color: #94a3b8; font-size: 1rem; margin-bottom: 1.5rem; }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; color: #818cf8; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 10px 20px; background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(129, 140, 248, 0.3); border-radius: 30px; backdrop-filter: blur(10px); transition: all 0.3s ease; }
+        .back-btn:hover { background: rgba(99, 102, 241, 0.2); color: #ffffff; border-color: rgba(129, 140, 248, 0.6); transform: translateX(-4px); }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+        .photo-list { display: flex; flex-direction: column; gap: 2rem; margin-top: 1rem; }
+        .photo-item { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; overflow: hidden; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease; }
+        .photo-item:hover { transform: translateY(-6px); border-color: rgba(129, 140, 248, 0.4); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(99, 102, 241, 0.2); }
+        .img-wrapper { position: relative; overflow: hidden; max-height: 480px; }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .photo-item:hover img { transform: scale(1.03); }
+        .photo-caption { padding: 1.75rem; }
+        .photo-caption h3 { font-size: 1.25rem; font-weight: 700; color: #f1f5f9; margin-bottom: 0.75rem; transition: color 0.3s ease; }
+        .photo-item:hover .photo-caption h3 { color: #818cf8; }
+        .photo-caption p { margin: 0; line-height: 1.6; color: #94a3b8; font-size: 0.975rem; }
+        
+        /* TOMBOL KEMBALI BAWAH */
+        .footer-back-container {
+            text-align: center;
+            margin: 3rem 0 2rem;
+        }
+
+        /* PEMUTAR MUSIK LATAR */
+        .audio-player { position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(129, 140, 248, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 30px; padding: 8px 16px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); display: flex; align-items: center; gap: 10px; }
+        .audio-player audio { height: 35px; outline: none; }
+
+        /* TOMBOL GULIR KE ATAS (SCROLL TO TOP) */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            width: 45px;
+            height: 45px;
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(129, 140, 248, 0.4);
+            color: #818cf8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .scroll-top-btn:hover {
+            background: rgba(99, 102, 241, 0.3);
+            color: #ffffff;
+            border-color: rgba(129, 140, 248, 0.8);
+            transform: translateY(-4px);
+        }
+
+        @media (max-width: 640px) {
+            .audio-player { bottom: 10px; right: 10px; left: 10px; justify-content: center; }
+            .scroll-top-btn { bottom: 75px; left: 20px; }
+        }
+        .reveal { opacity: 0; transform: translateY(40px) scale(0.97); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+    </style>
+
+<style>
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+.img-wrapper{cursor:zoom-in;background:#111827}
+.photo-item img{min-height:120px}
+.photo-item.image-broken .img-wrapper::after{
+  content:"Foto tidak dapat dimuat"; position:absolute; inset:0; display:grid; place-items:center;
+  color:#cbd5e1; font-size:.9rem; background:rgba(2,6,23,.55)
+}
+.album-progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#818cf8,#ec4899);z-index:10000}
+.album-counter{font-size:.8rem;color:#94a3b8;text-align:center;margin:0 0 1.2rem}
+.lightbox{position:fixed;inset:0;background:rgba(2,6,23,.94);z-index:10001;display:none;align-items:center;justify-content:center;padding:18px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:94vw;max-height:84vh;width:auto;height:auto;object-fit:contain;border-radius:14px;box-shadow:0 20px 70px rgba(0,0,0,.65)}
+.lightbox-close,.lightbox-prev,.lightbox-next{position:absolute;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(30,41,59,.8);color:#fff;display:grid;place-items:center;cursor:pointer;font-size:1.1rem}
+.lightbox-close{top:18px;right:18px}.lightbox-prev{left:18px}.lightbox-next{right:18px}
+.lightbox-caption{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:#e2e8f0;background:rgba(15,23,42,.75);padding:8px 14px;border-radius:999px;font-size:.8rem;max-width:80vw;text-align:center}
+@media(max-width:640px){
+ header{padding:2.7rem 1rem 2rem} header h1{font-size:clamp(1.75rem,8vw,2.3rem)}
+ .container{padding:0 1rem 5rem}.photo-caption{padding:1.2rem}.photo-caption h3{font-size:1.08rem}
+ .audio-player{bottom:10px!important;left:10px!important;right:10px!important;justify-content:center}
+ .lightbox-prev{left:8px}.lightbox-next{right:8px}.lightbox-close{top:10px;right:10px}
+}
+a:focus-visible,button:focus-visible{outline:2px solid #a5b4fc;outline-offset:3px}
+</style>
+<style>
+/* ===== UI ENHANCEMENT v2 — tetap 100% di dalam file HTML ===== */
+:root{
+  --ui-bg:#0b0f19;--ui-surface:rgba(15,23,42,.78);--ui-surface-2:rgba(30,41,59,.62);
+  --ui-border:rgba(255,255,255,.10);--ui-text:#f8fafc;--ui-muted:#94a3b8;
+  --ui-primary:#818cf8;--ui-primary-2:#6366f1;--ui-shadow:0 18px 50px rgba(0,0,0,.28);
+}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{transition:background-color .3s ease,color .3s ease}
+::selection{background:rgba(129,140,248,.35);color:#fff}
+button,a,input,textarea,select{font:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{
+ outline:3px solid rgba(129,140,248,.45);outline-offset:3px
+}
+.ui-progress{position:fixed;inset:0 0 auto 0;height:3px;width:0;background:linear-gradient(90deg,#6366f1,#a78bfa,#ec4899);z-index:99999;box-shadow:0 0 12px rgba(129,140,248,.45)}
+.ui-tools{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:9px;z-index:9990}
+.ui-tool{
+ width:44px;height:44px;border:1px solid var(--ui-border);border-radius:14px;
+ background:rgba(15,23,42,.86);color:var(--ui-text);backdrop-filter:blur(14px);
+ display:grid;place-items:center;cursor:pointer;box-shadow:var(--ui-shadow);
+ transition:transform .2s ease,background .2s ease,border-color .2s ease
+}
+.ui-tool:hover{transform:translateY(-3px);border-color:rgba(129,140,248,.55);background:rgba(30,41,59,.95)}
+.ui-tool[hidden]{display:none}
+.ui-toast{
+ position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;
+ padding:11px 16px;border:1px solid var(--ui-border);border-radius:12px;background:rgba(15,23,42,.94);
+ color:#fff;backdrop-filter:blur(12px);z-index:10000;transition:.25s ease;font-size:.88rem;box-shadow:var(--ui-shadow)
+}
+.ui-toast.show{opacity:1;transform:translate(-50%,0)}
+.ui-toolbar{
+ max-width:900px;margin:0 auto 22px;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+ background:rgba(15,23,42,.48);border:1px solid var(--ui-border);border-radius:18px;backdrop-filter:blur(14px)
+}
+.ui-search{
+ flex:1;min-width:220px;border:1px solid var(--ui-border)!important;border-radius:12px!important;
+ background:rgba(2,6,23,.45)!important;color:#fff!important;padding:12px 14px!important
+}
+.ui-count{font-size:.82rem;color:var(--ui-muted);white-space:nowrap}
+.ui-empty{display:none;text-align:center;padding:40px 20px;color:var(--ui-muted);border:1px dashed var(--ui-border);border-radius:18px}
+.ui-empty.show{display:block}
+.photo-item.ui-hidden,.student-list-item.ui-hidden{display:none!important}
+body.ui-light{
+ --ui-bg:#f5f7fb;--ui-surface:rgba(255,255,255,.84);--ui-surface-2:rgba(255,255,255,.76);
+ --ui-border:rgba(15,23,42,.10);--ui-text:#111827;--ui-muted:#64748b;
+ background:#f5f7fb!important;color:#111827!important;
+ background-image:radial-gradient(at 0% 0%,rgba(99,102,241,.10) 0,transparent 50%),radial-gradient(at 100% 100%,rgba(236,72,153,.08) 0,transparent 50%)!important
+}
+body.ui-light .ui-tool{background:rgba(255,255,255,.9);color:#111827}
+body.ui-light .ui-toast{background:rgba(255,255,255,.96);color:#111827}
+body.ui-light .ui-toolbar{background:rgba(255,255,255,.7)}
+@media(max-width:600px){
+ .ui-tools{right:12px;bottom:12px}.ui-tool{width:42px;height:42px}
+ .ui-toolbar{margin-left:12px;margin-right:12px;border-radius:15px}
+ .ui-search{min-width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
 </head>
- <body>
-  <div class="album-progress" id="albumProgress">
-  </div>
-  <div aria-label="Pratinjau foto" aria-modal="true" class="lightbox" id="lightbox" role="dialog">
-   <button aria-label="Tutup" class="lightbox-close" id="lbClose">
-    <i class="fa-solid fa-xmark">
-    </i>
-   </button>
-   <button aria-label="Foto sebelumnya" class="lightbox-prev" id="lbPrev">
-    <i class="fa-solid fa-chevron-left">
-    </i>
-   </button>
-   <img alt="Pratinjau foto" id="lbImage"/>
-   <button aria-label="Foto berikutnya" class="lightbox-next" id="lbNext">
-    <i class="fa-solid fa-chevron-right">
-    </i>
-   </button>
-   <div class="lightbox-caption" id="lbCaption">
-   </div>
-  </div>
-  <header>
-   <span class="header-tag">
-    Dokumentasi Acara
-   </span>
-   <h1>
-    Buka Bersama Ramadhan
-   </h1>
-   <p>
-    Momen Kebersamaan dan Silaturahmi Anggota Kelas XII IPS-1
-   </p>
-   <a class="back-btn" href="index.html">
-    &larr; Kembali ke Halaman Utama
-   </a>
-  </header>
-  <div class="container">
-   <div class="photo-list">
-    <div class="album-counter" id="albumCounter">
+<body>
+<div class="album-progress" id="albumProgress"></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
+<button class="lightbox-close" id="lbClose" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+<button class="lightbox-prev" id="lbPrev" aria-label="Foto sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+<img id="lbImage" alt="Pratinjau foto">
+<button class="lightbox-next" id="lbNext" aria-label="Foto berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
+<div class="lightbox-caption" id="lbCaption"></div></div>
+
+    <header>
+        <span class="header-tag">Dokumentasi Acara</span>
+        <h1>Buka Bersama Ramadhan</h1>
+        <p>Momen Kebersamaan dan Silaturahmi Anggota Kelas XII IPS-1</p>
+        <a href="index.html" class="back-btn">&larr; Kembali ke Halaman Utama</a>
+    </header>
+
+    <div class="container">
+        <div class="photo-list">
+<div class="album-counter" id="albumCounter"></div>
+            <div class="photo-item reveal">
+                <div class="img-wrapper"><img src="Bukber1.jpg" alt="Persiapan Bukber" loading="lazy"></div>
+                <div class="photo-caption">
+                    <h3>1. Suasana Hangat Bukber Satu Kelas</h3>
+                    <p>Potret kebersamaan seluruh anggota kelas yang duduk memanjang di meja makan lesehan tempat makan. Suasana dipenuhi rasa kekeluargaan dan kehangatan saat momen buka puasa bersama.</p>
+                </div>
+            </div>
+
+            <div class="photo-item reveal">
+                <div class="img-wrapper"><img src="Bukber2.jpg" alt="Momen Buka Bersama" loading="lazy"></div>
+                <div class="photo-caption">
+                    <h3>2. Canda Tawa Siswi di Meja Makan</h3>
+                    <p>Momen keceriaan para siswi yang duduk mengelilingi meja makan setelah santap bersama. Mereka memamerkan berbagai pose manis dan senyuman penuh kehangatan.</p>
+                </div>
+            </div>
+
+            <div class="photo-item reveal">
+                <div class="img-wrapper"><img src="Bukber3.jpg" alt="Foto Bersama Satu Kelas" loading="lazy"></div>
+                <div class="photo-caption">
+                    <h3>3. Pose Santai Para Siswa Laki-Laki</h3>
+                    <p>Potret empat siswa laki-laki yang tampil rapi dengan baju koko dan kemeja, berpose bersama di depan latar dekorasi yang menarik saat acara buka bersama berlangsung.</p>
+                </div>
+            </div>
+
+            <div class="photo-item reveal">
+                <div class="img-wrapper"><img src="Bukber4.jpg" alt="Candid Kebersamaan" loading="lazy"></div>
+                <div class="photo-caption">
+                    <h3>4. Kebersamaan di Meja Makan Lesehan</h3>
+                    <p>Para siswa laki-laki berkumpul mengelilingi meja makan lesehan setelah menikmati hidangan buka puasa bersama. Mereka berpose kompak memperagakan salam dengan senyuman hangat penuh keakraban.</p>
+                </div>
+            </div>
+
+            <!-- 1 Foto Baru Ditambahkan -->
+            <div class="photo-item reveal">
+                <div class="img-wrapper"><img src="Bukber5.jpg" alt="Boyband Dadakan Komplek" loading="lazy"></div>
+                <div class="photo-caption">
+                    <h3>5. Abang - abangan lagi nunggu adzan magrib</h3>
+                    <p>Pasukan baju koko yang sengaja mejeng di teras rumah sebelum beduk maghrib berkumandang. Muka-muka penuh kesabaran nunggu kolak pisang, padahal di dalam hati udah rusuh pengen buru-buru melahap es buah.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOMBOL KEMBALI DI BAGIAN BAWAH -->
+        <div class="footer-back-container">
+            <a href="index.html" class="back-btn">&larr; Kembali ke Halaman Utama</a>
+        </div>
     </div>
-    <div class="photo-item reveal">
-     <div class="img-wrapper">
-      <img alt="Persiapan Bukber" loading="lazy" src="Bukber1.jpg"/>
-     </div>
-     <div class="photo-caption">
-      <h3>
-       1. Suasana Hangat Bukber Satu Kelas
-      </h3>
-      <p>
-       Potret kebersamaan seluruh anggota kelas yang duduk memanjang di meja makan lesehan tempat makan. Suasana dipenuhi rasa kekeluargaan dan kehangatan saat momen buka puasa bersama.
-      </p>
-     </div>
+
+    <!-- TOMBOL GULIR KE ATAS -->
+    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Kembali ke atas">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- PEMUTAR MUSIK LATAR -->
+    <div class="audio-player">
+        <i class="fa-solid fa-music" style="color: #818cf8;"></i>
+        <audio id="bgMusic" controls loop preload="auto">
+            <source src="upayy.mp3" type="audio/mpeg">
+            Browser Anda tidak mendukung pemutar audio.
+        </audio>
     </div>
-    <div class="photo-item reveal">
-     <div class="img-wrapper">
-      <img alt="Momen Buka Bersama" loading="lazy" src="Bukber2.jpg"/>
-     </div>
-     <div class="photo-caption">
-      <h3>
-       2. Canda Tawa Siswi di Meja Makan
-      </h3>
-      <p>
-       Momen keceriaan para siswi yang duduk mengelilingi meja makan setelah santap bersama. Mereka memamerkan berbagai pose manis dan senyuman penuh kehangatan.
-      </p>
-     </div>
-    </div>
-    <div class="photo-item reveal">
-     <div class="img-wrapper">
-      <img alt="Foto Bersama Satu Kelas" loading="lazy" src="Bukber3.jpg"/>
-     </div>
-     <div class="photo-caption">
-      <h3>
-       3. Pose Santai Para Siswa Laki-Laki
-      </h3>
-      <p>
-       Potret empat siswa laki-laki yang tampil rapi dengan baju koko dan kemeja, berpose bersama di depan latar dekorasi yang menarik saat acara buka bersama berlangsung.
-      </p>
-     </div>
-    </div>
-    <div class="photo-item reveal">
-     <div class="img-wrapper">
-      <img alt="Candid Kebersamaan" loading="lazy" src="Bukber4.jpg"/>
-     </div>
-     <div class="photo-caption">
-      <h3>
-       4. Kebersamaan di Meja Makan Lesehan
-      </h3>
-      <p>
-       Para siswa laki-laki berkumpul mengelilingi meja makan lesehan setelah menikmati hidangan buka puasa bersama. Mereka berpose kompak memperagakan salam dengan senyuman hangat penuh keakraban.
-      </p>
-     </div>
-    </div>
-    <!-- 1 Foto Baru Ditambahkan -->
-    <div class="photo-item reveal">
-     <div class="img-wrapper">
-      <img alt="Boyband Dadakan Komplek" loading="lazy" src="Bukber5.jpg"/>
-     </div>
-     <div class="photo-caption">
-      <h3>
-       5. Abang - abangan lagi nunggu adzan magrib
-      </h3>
-      <p>
-       Pasukan baju koko yang sengaja mejeng di teras rumah sebelum beduk maghrib berkumandang. Muka-muka penuh kesabaran nunggu kolak pisang, padahal di dalam hati udah rusuh pengen buru-buru melahap es buah.
-      </p>
-     </div>
-    </div>
-   </div>
-   <!-- TOMBOL KEMBALI DI BAGIAN BAWAH -->
-   <div class="footer-back-container">
-    <a class="back-btn" href="index.html">
-     &larr; Kembali ke Halaman Utama
-    </a>
-   </div>
-  </div>
-  <!-- TOMBOL GULIR KE ATAS -->
-  <button aria-label="Kembali ke atas" class="scroll-top-btn" id="scrollTopBtn">
-   <i class="fa-solid fa-arrow-up">
-   </i>
-  </button>
-  <!-- PEMUTAR MUSIK LATAR -->
-  <div class="audio-player">
-   <i class="fa-solid fa-music" style="color: #818cf8;">
-   </i>
-   <audio controls="" id="bgMusic" loop="" preload="auto">
-    <source src="upayy.mp3" type="audio/mpeg"/>
-    Browser Anda tidak mendukung pemutar audio.
-   </audio>
-  </div>
-  <script defer="True" src="assets/js/gallery.js">
-  </script>
-  <script defer="True" src="assets/js/analytics.js">
-  </script>
-   <script defer src="assets/js/site-ui.js"></script>
+
+    <script>
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+            for (let index = 0; index < reveals.length; index++) {
+                const element = reveals[index];
+                const elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    setTimeout(function () { element.classList.add('active'); }, index * 100);
+                }
+            }
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // SKRIP LOGIKA SCROLL TO TOP
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+        if (scrollTopBtn) scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Sinkronisasi Musik
+        (function() {
+            const audio = document.getElementById('bgMusic');
+            if (!audio) return;
+            const savedTime = localStorage.getItem('musicCurrentTime');
+            const isPlaying = localStorage.getItem('musicIsPlaying');
+            if (savedTime !== null) audio.currentTime = parseFloat(savedTime);
+
+            const saveCurrentState = () => {
+                localStorage.setItem('musicCurrentTime', audio.currentTime);
+                localStorage.setItem('musicIsPlaying', !audio.paused ? 'true' : 'false');
+            };
+
+            audio.addEventListener('timeupdate', saveCurrentState);
+            window.addEventListener('beforeunload', saveCurrentState);
+            window.addEventListener('pagehide', saveCurrentState);
+            audio.addEventListener('play', () => localStorage.setItem('musicIsPlaying', 'true'));
+            audio.addEventListener('pause', () => localStorage.setItem('musicIsPlaying', 'false'));
+
+            if (isPlaying === 'true') {
+                audio.play().catch(() => {
+                    const resumeAudio = () => {
+                        if (localStorage.getItem('musicIsPlaying') === 'true') audio.play();
+                        document.removeEventListener('click', resumeAudio);
+                    };
+                    document.addEventListener('click', resumeAudio);
+                });
+            }
+        })();
+    </script>
+
+<script>
+(function () {
+  const items = document.querySelectorAll('.photo-item');
+  const photos = [];
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const image = item.querySelector('img');
+    if (image) {
+      const heading = item.querySelector('h3');
+      photos.push({
+        item: item,
+        img: image,
+        title: heading ? heading.textContent : 'Foto ' + (i + 1)
+      });
+    }
+  }
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lbImage');
+  const caption = document.getElementById('lbCaption');
+  const counter = document.getElementById('albumCounter');
+  const closeButton = document.getElementById('lbClose');
+  const previousButton = document.getElementById('lbPrev');
+  const nextButton = document.getElementById('lbNext');
+  let current = 0;
+
+  if (counter) {
+    counter.textContent = photos.length + ' dokumentasi • Ketuk foto untuk memperbesar';
+  }
+
+  function showPhoto(index) {
+    if (!lightbox || !lightboxImage || !caption || photos.length === 0) return;
+    current = (index + photos.length) % photos.length;
+    const photo = photos[current];
+    lightboxImage.src = photo.img.currentSrc || photo.img.src;
+    lightboxImage.alt = photo.img.alt || photo.title || ('Foto ' + (current + 1));
+    caption.textContent = (current + 1) + ' / ' + photos.length + ' — ' + photo.title;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  for (let i = 0; i < photos.length; i++) {
+    const photo = photos[i];
+    const photoIndex = i;
+    photo.img.addEventListener('click', function () { showPhoto(photoIndex); });
+    photo.img.addEventListener('error', function () { photo.item.classList.add('image-broken'); });
+  }
+
+  if (closeButton) closeButton.addEventListener('click', closeLightbox);
+  if (previousButton) previousButton.addEventListener('click', function () { showPhoto(current - 1); });
+  if (nextButton) nextButton.addEventListener('click', function () { showPhoto(current + 1); });
+
+  if (lightbox) {
+    lightbox.addEventListener('click', function (event) {
+      if (event.target === lightbox) closeLightbox();
+    });
+  }
+
+  document.addEventListener('keydown', function (event) {
+    if (!lightbox || !lightbox.classList.contains('open')) return;
+    if (event.key === 'Escape') closeLightbox();
+    if (event.key === 'ArrowLeft') showPhoto(current - 1);
+    if (event.key === 'ArrowRight') showPhoto(current + 1);
+  });
+
+  const progress = document.getElementById('albumProgress');
+  window.addEventListener('scroll', function () {
+    if (!progress) return;
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (height > 0 ? (window.scrollY / height * 100) : 0) + '%';
+  }, { passive: true });
+})();
+</script>
+
+
+<script>
+(function(){
+  'use strict';
+  const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const body=document.body;
+
+  // Progress + tools
+  const progress=document.createElement('div'); progress.className='ui-progress'; progress.setAttribute('aria-hidden','true');
+  document.documentElement.appendChild(progress);
+  const tools=document.createElement('div'); tools.className='ui-tools';
+  tools.innerHTML=`
+    <button class="ui-tool" id="uiTheme" type="button" aria-label="Ganti tema" title="Ganti tema"><i class="fa-solid fa-moon"></i></button>
+    <button class="ui-tool" id="uiShare" type="button" aria-label="Bagikan halaman" title="Bagikan"><i class="fa-solid fa-share-nodes"></i></button>
+    <button class="ui-tool" id="uiTop" type="button" aria-label="Kembali ke atas" title="Kembali ke atas" hidden><i class="fa-solid fa-arrow-up"></i></button>`;
+  body.appendChild(tools);
+  const toast=document.createElement('div'); toast.className='ui-toast'; toast.setAttribute('role','status'); body.appendChild(toast);
+  let toastTimer;
+  function notify(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2200)}
+
+  const saved=localStorage.getItem('kelas-theme');
+  if(saved==='light') body.classList.add('ui-light');
+  const themeBtn=$('#uiTheme');
+  function updateThemeIcon(){themeBtn.innerHTML=body.classList.contains('ui-light')?'<i class="fa-solid fa-sun"></i>':'<i class="fa-solid fa-moon"></i>'}
+  updateThemeIcon();
+  themeBtn.onclick=()=>{body.classList.toggle('ui-light');localStorage.setItem('kelas-theme',body.classList.contains('ui-light')?'light':'dark');updateThemeIcon();notify(body.classList.contains('ui-light')?'Mode terang aktif':'Mode gelap aktif')};
+
+  $('#uiShare').onclick=async()=>{
+    const data={title:document.title,text:document.title,url:location.href};
+    try{if(navigator.share){await navigator.share(data)}else{await navigator.clipboard.writeText(location.href);notify('Link halaman berhasil disalin')}}
+    catch(e){}
+  };
+  const topBtn=$('#uiTop');
+  function onScroll(){
+    const h=document.documentElement.scrollHeight-innerHeight;
+    progress.style.width=(h>0?Math.min(100,scrollY/h*100):0)+'%';
+    topBtn.hidden=scrollY<450;
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  topBtn.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+
+  // Semua gambar: lazy loading untuk gambar non-hero + decoding async
+  $$('img').forEach((img,i)=>{if(i>0 && !img.loading) img.loading='lazy';img.decoding='async'});
+
+  // Gallery search/filter untuk halaman album
+  const photos=$$('.photo-item');
+  if(photos.length){
+    const container=$('.container')||photos[0].parentElement;
+    const toolbar=document.createElement('div'); toolbar.className='ui-toolbar';
+    toolbar.innerHTML='<input class="ui-search" type="search" placeholder="Cari momen atau keterangan foto…" aria-label="Cari foto"><span class="ui-count"></span>';
+    container.insertBefore(toolbar,photos[0].parentElement);
+    const search=$('.ui-search',toolbar), count=$('.ui-count',toolbar);
+    const empty=document.createElement('div'); empty.className='ui-empty'; empty.textContent='Tidak ada foto yang cocok dengan pencarian.'; container.appendChild(empty);
+    function filter(){
+      const q=search.value.trim().toLowerCase();let shown=0;
+      photos.forEach(p=>{const text=(p.innerText+' '+$$('img',p).map(i=>i.alt).join(' ')).toLowerCase();const ok=!q||text.includes(q);p.classList.toggle('ui-hidden',!ok);if(ok)shown++});
+      count.textContent=shown+' foto';empty.classList.toggle('show',shown===0);
+    }
+    search.addEventListener('input',filter);filter();
+  }
+
+  // Pencarian anggota di halaman utama
+  const students=$$('.student-list-item');
+  if(students.length){
+    const list=students[0].parentElement;
+    const toolbar=document.createElement('div'); toolbar.className='ui-toolbar';
+    toolbar.innerHTML='<input class="ui-search" type="search" placeholder="Cari nama anggota kelas…" aria-label="Cari anggota kelas"><span class="ui-count"></span>';
+    list.parentElement.insertBefore(toolbar,list);
+    const search=$('.ui-search',toolbar),count=$('.ui-count',toolbar);
+    const empty=document.createElement('div');empty.className='ui-empty';empty.textContent='Nama anggota tidak ditemukan.';list.parentElement.appendChild(empty);
+    function filter(){const q=search.value.trim().toLowerCase();let shown=0;students.forEach(p=>{const ok=!q||p.innerText.toLowerCase().includes(q);p.classList.toggle('ui-hidden',!ok);if(ok)shown++});count.textContent=shown+' anggota';empty.classList.toggle('show',shown===0)}
+    search.addEventListener('input',filter);filter();
+  }
+
+  // Keyboard shortcut /: fokus pencarian
+  addEventListener('keydown',e=>{if(e.key==='/' && !/input|textarea|select/i.test(document.activeElement.tagName)){const s=$('.ui-search');if(s){e.preventDefault();s.focus()}}});
+})();
+</script>
+
 </body>
 </html>
