@@ -193,6 +193,196 @@ body.ui-light .ui-toolbar{background:rgba(255,255,255,.7)}
  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
 </style>
+<style id="comfortable-light-mode">
+/* Comfortable light mode: warmer background, softer borders, calmer contrast */
+body.ui-light{background:#f5f2ed!important;color:#2f2a25!important;background-image:radial-gradient(circle at 0% 0%,rgba(99,102,241,.045),transparent 42%),radial-gradient(circle at 100% 100%,rgba(236,72,153,.035),transparent 45%)!important}
+body.ui-light header,body.ui-light main,body.ui-light section,body.ui-light .container{color:#2f2a25}
+body.ui-light .sticky-nav-wrapper{background:rgba(255,252,248,.88)!important;border-color:rgba(60,48,38,.09)!important;box-shadow:0 8px 24px rgba(80,64,48,.06)!important}
+body.ui-light .nav-pill{color:#5f574f!important;background:rgba(255,255,255,.55)!important;border-color:rgba(60,48,38,.08)!important}
+body.ui-light .nav-pill:hover{color:#302a25!important;background:rgba(99,102,241,.06)!important}
+body.ui-light .about-card,body.ui-light .quote-container,body.ui-light .class-banner,body.ui-light .student-list-item,body.ui-light .card,body.ui-light .modal-card,body.ui-light .audio-player,body.ui-light .ui-toolbar{background:rgba(255,255,255,.88)!important;border-color:rgba(60,48,38,.09)!important;box-shadow:0 12px 30px rgba(80,64,48,.055)!important}
+body.ui-light .section-title,body.ui-light .student-name,body.ui-light .card-content h3,body.ui-light .modal-body h3{color:#2f2a25!important}
+body.ui-light .card-content p,body.ui-light .quote-author,body.ui-light .quote-hint,body.ui-light .modal-info,body.ui-light .date,body.ui-light footer p{color:#746b62!important}
+body.ui-light .ui-search{background:#fff!important;color:#2f2a25!important;border-color:rgba(60,48,38,.12)!important}
+body.ui-light footer{background:#ebe6df!important;color:#5f574f!important}
+body.ui-light .scroll-top-btn{background:#fff!important;color:#403831!important;border-color:rgba(60,48,38,.1)!important;box-shadow:0 10px 25px rgba(80,64,48,.1)!important}
+body.ui-light .audio-player audio{filter:none}
+@media(max-width:600px){body.ui-light .sticky-nav-wrapper{background:rgba(255,252,248,.94)!important}}
+</style>
+
+<style id="v6-layout-css">
+:root{--safe-bottom:env(safe-area-inset-bottom,0px);--mobile-nav-h:72px;--audio-panel-h:62px}
+.ui-tools{position:fixed!important;top:50%!important;right:-104px!important;width:132px!important;max-width:132px!important;height:auto!important;box-sizing:border-box!important;padding:10px!important;gap:8px!important;display:flex!important;flex-direction:column!important;align-items:center!important;overflow:visible!important;background:rgba(10,15,28,.97)!important;border:1px solid rgba(129,140,248,.30)!important;border-right:0!important;border-radius:18px 0 0 18px!important;box-shadow:0 12px 35px rgba(0,0,0,.30)!important;backdrop-filter:blur(14px)!important;z-index:10050!important;transform:translateY(-50%)!important;transition:right .28s cubic-bezier(.2,.8,.2,1)!important}
+.ui-tools.is-open{right:0!important}
+.ui-tools .ui-drawer-handle{position:absolute!important;left:-29px!important;top:50%!important;transform:translateY(-50%)!important;width:30px!important;height:64px!important;margin:0!important;padding:0!important;display:grid!important;place-items:center!important;border:1px solid rgba(129,140,248,.30)!important;border-right:0!important;border-radius:14px 0 0 14px!important;background:rgba(10,15,28,.97)!important;color:#a5b4fc!important;cursor:pointer!important;touch-action:none!important;box-shadow:-8px 8px 22px rgba(0,0,0,.20)!important}
+.ui-tools .ui-tool{width:48px!important;height:48px!important;min-width:48px!important;padding:0!important;margin:0!important;border-radius:14px!important;display:grid!important;place-items:center!important;flex:none!important}
+.ui-tools::before{display:none!important}
+.ui-top-fixed{position:fixed!important;right:16px!important;bottom:calc(var(--mobile-nav-h) + 18px + var(--safe-bottom))!important;width:52px!important;height:52px!important;display:grid!important;place-items:center!important;border-radius:50%!important;border:1px solid rgba(129,140,248,.55)!important;background:rgba(76,81,205,.94)!important;color:#fff!important;box-shadow:0 10px 28px rgba(0,0,0,.28)!important;z-index:10060!important;cursor:pointer!important;transition:transform .2s ease,opacity .2s ease!important}
+.ui-top-fixed:hover{transform:translateY(-3px)!important}.ui-top-fixed:active{transform:scale(.95)!important}
+@media(max-width:700px){body{padding-bottom:calc(var(--mobile-nav-h) + 20px + var(--safe-bottom))!important}.mobile-dock{left:10px!important;right:10px!important;bottom:calc(8px + var(--safe-bottom))!important;height:var(--mobile-nav-h)!important;box-sizing:border-box!important;z-index:10000!important}.ui-tools{top:40%!important}.ui-top-fixed{right:14px!important;bottom:calc(var(--mobile-nav-h) + 16px + var(--safe-bottom))!important;width:50px!important;height:50px!important}}
+.audio-player.audio-dock{position:fixed!important;left:50%!important;right:auto!important;bottom:calc(var(--mobile-nav-h) + 8px + var(--safe-bottom))!important;width:min(720px,calc(100vw - 16px))!important;height:var(--audio-panel-h)!important;min-height:var(--audio-panel-h)!important;box-sizing:border-box!important;padding:8px 10px!important;border-radius:18px!important;background:rgba(10,15,28,.97)!important;border:1px solid rgba(129,140,248,.32)!important;box-shadow:0 14px 35px rgba(0,0,0,.30)!important;z-index:10030!important;overflow:hidden!important;transform:translate(-50%,calc(100% + 52px))!important;transition:transform .30s cubic-bezier(.2,.8,.2,1)!important}
+.audio-player.audio-dock.is-open{transform:translate(-50%,0)!important}.audio-dock .audio-toggle{position:absolute!important;top:-22px!important;left:50%!important;transform:translateX(-50%)!important;width:82px!important;height:22px!important;padding:0!important;border:1px solid rgba(129,140,248,.32)!important;border-bottom:0!important;border-radius:13px 13px 0 0!important;background:rgba(10,15,28,.97)!important;color:#a5b4fc!important;display:grid!important;place-items:center!important;cursor:pointer!important;touch-action:none!important;z-index:2!important}.audio-dock audio{display:block!important;width:100%!important;height:44px!important;max-width:none!important}
+body.ui-light .ui-tools{background:#fffdf9!important;border-color:#e2ddd5!important}body.ui-light .ui-tools .ui-drawer-handle{background:#fffdf9!important;color:#514a91!important;border-color:#e2ddd5!important}body.ui-light .ui-top-fixed{background:#615bd8!important;border-color:#514a91!important}body.ui-light .audio-player.audio-dock{background:#fffdf9!important;border-color:#e2ddd5!important;box-shadow:0 12px 28px rgba(43,38,31,.12)!important}body.ui-light .audio-dock .audio-toggle{background:#fffdf9!important;color:#514a91!important;border-color:#e2ddd5!important}
+@media(max-width:420px){.mobile-dock{left:8px!important;right:8px!important;height:68px!important}.ui-top-fixed{right:12px!important}.audio-player.audio-dock{width:calc(100vw - 12px)!important}}
+</style>
+<style id="v7-layout-fix">
+:root{--v7-safe:env(safe-area-inset-bottom,0px);--v7-nav:72px;--v7-audio:74px;}
+/* RIGHT CONTROL: closed = only the three-dot trigger is visible */
+.ui-tools{position:fixed!important;top:50%!important;right:-280px!important;left:auto!important;width:250px!important;max-width:250px!important;height:auto!important;box-sizing:border-box!important;padding:12px!important;gap:9px!important;display:flex!important;flex-direction:column!important;align-items:center!important;overflow:visible!important;background:rgba(10,15,28,.985)!important;border:1px solid rgba(129,140,248,.30)!important;border-right:0!important;border-radius:18px 0 0 18px!important;box-shadow:0 16px 40px rgba(0,0,0,.34)!important;backdrop-filter:blur(16px)!important;z-index:10080!important;transform:translateY(-50%)!important;transition:right .28s cubic-bezier(.2,.8,.2,1)!important;}
+.ui-tools.is-open{right:0!important}
+.ui-tools .ui-drawer-handle{display:none!important}
+.v7-tools-trigger{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;width:30px!important;height:58px!important;border:1px solid rgba(129,140,248,.34)!important;border-right:0!important;border-radius:15px 0 0 15px!important;background:rgba(10,15,28,.98)!important;color:#a5b4fc!important;display:grid!important;place-items:center!important;z-index:10090!important;box-shadow:-6px 8px 20px rgba(0,0,0,.22)!important;padding:0!important;touch-action:none!important;}
+.v7-tools-trigger i{font-size:17px!important;line-height:1!important}
+.v7-tools-trigger.is-open{right:250px!important}
+.ui-tools .ui-tool{width:48px!important;height:48px!important;min-width:48px!important;padding:0!important;margin:0!important;border-radius:14px!important;display:grid!important;place-items:center!important;flex:none!important}
+.ui-top-fixed{position:fixed!important;right:14px!important;bottom:calc(var(--v7-nav) + 16px + var(--v7-safe))!important;width:50px!important;height:50px!important;display:grid!important;place-items:center!important;border-radius:50%!important;border:1px solid rgba(129,140,248,.55)!important;background:rgba(76,81,205,.94)!important;color:#fff!important;box-shadow:0 10px 28px rgba(0,0,0,.28)!important;z-index:10070!important;cursor:pointer!important;}
+/* AUDIO: separate layer; closed panel is fully below the viewport. */
+.audio-player.audio-dock{position:fixed!important;left:50%!important;right:auto!important;bottom:calc(var(--v7-nav) + 7px + var(--v7-safe))!important;width:min(720px,calc(100vw - 20px))!important;height:var(--v7-audio)!important;min-height:var(--v7-audio)!important;box-sizing:border-box!important;padding:9px 10px!important;border-radius:18px!important;background:rgba(10,15,28,.985)!important;border:1px solid rgba(129,140,248,.32)!important;box-shadow:0 14px 35px rgba(0,0,0,.30)!important;z-index:10060!important;overflow:hidden!important;transform:translate(-50%,calc(100% + 18px))!important;transition:transform .28s cubic-bezier(.2,.8,.2,1)!important;}
+.audio-player.audio-dock.is-open{transform:translate(-50%,0)!important}
+.audio-player.audio-dock .audio-toggle{display:none!important}
+.audio-player.audio-dock audio{display:block!important;width:100%!important;height:48px!important;max-width:none!important}
+.v7-audio-trigger{position:fixed!important;left:50%!important;transform:translateX(-50%)!important;bottom:calc(var(--v7-nav) + 4px + var(--v7-safe))!important;width:74px!important;height:18px!important;padding:0!important;border:1px solid rgba(129,140,248,.34)!important;border-bottom:0!important;border-radius:12px 12px 0 0!important;background:rgba(10,15,28,.985)!important;color:#a5b4fc!important;display:grid!important;place-items:center!important;z-index:10075!important;box-shadow:0 -4px 15px rgba(0,0,0,.16)!important;touch-action:none!important;}
+.v7-audio-trigger i{font-size:12px!important;line-height:1!important}
+.v7-audio-trigger.is-open{bottom:calc(var(--v7-nav) + var(--v7-audio) + 7px + var(--v7-safe))!important}
+.mobile-dock{z-index:10000!important}
+body{padding-bottom:calc(var(--v7-nav) + 20px + var(--v7-safe))!important}
+body.ui-light .ui-tools,body.ui-light .v7-tools-trigger,body.ui-light .v7-audio-trigger,body.ui-light .audio-player.audio-dock{background:#fffaf2!important;border-color:#ded7cc!important;box-shadow:0 12px 30px rgba(52,46,38,.12)!important}
+body.ui-light .v7-tools-trigger,body.ui-light .v7-audio-trigger{color:#514a91!important}
+@media(max-width:700px){
+  .ui-tools{right:-270px!important;width:240px!important;max-width:240px!important}
+  .ui-tools.is-open{right:0!important}
+  .v7-tools-trigger.is-open{right:240px!important}
+  .ui-top-fixed{right:12px!important;bottom:calc(var(--v7-nav) + 14px + var(--v7-safe))!important;width:50px!important;height:50px!important}
+  .audio-player.audio-dock{width:calc(100vw - 20px)!important;height:var(--v7-audio)!important}
+}
+@media(max-width:420px){
+  :root{--v7-nav:68px;--v7-audio:70px}
+  .ui-tools{right:-235px!important;width:205px!important;max-width:205px!important}
+  .v7-tools-trigger.is-open{right:205px!important}
+  .audio-player.audio-dock{width:calc(100vw - 16px)!important}
+}
+</style>
+
+<style id="v8-final-layout">
+/* V8 FINAL LAYOUT FIX — audio, top button, album cover sizing */
+:root{--v8-safe:env(safe-area-inset-bottom,0px);--v8-nav:72px;--v8-audio:74px}
+
+/* Never show the legacy scroll-to-top control; V8 uses exactly one button. */
+#scrollTopBtn,.scroll-top-btn{display:none!important}
+
+/* Exactly one fixed Back-to-top button, independent from the right drawer. */
+#uiTop.ui-top-fixed{
+  position:fixed!important;
+  right:16px!important;
+  left:auto!important;
+  bottom:calc(var(--v8-nav) + 16px + var(--v8-safe))!important;
+  width:50px!important;height:50px!important;
+  display:grid!important;place-items:center!important;
+  border-radius:50%!important;
+  z-index:10070!important;
+  opacity:1!important;visibility:visible!important;
+  pointer-events:auto!important;
+}
+
+/* Right drawer: closed means ONLY the 3-dot tab is visible. */
+.ui-tools{
+  position:fixed!important;top:50%!important;right:-270px!important;left:auto!important;
+  width:240px!important;max-width:240px!important;
+  transform:translateY(-50%)!important;
+  z-index:10080!important;
+  overflow:visible!important;
+  transition:right .28s cubic-bezier(.2,.8,.2,1)!important;
+}
+.ui-tools.is-open{right:0!important}
+.v7-tools-trigger{
+  position:fixed!important;right:0!important;top:50%!important;
+  transform:translateY(-50%)!important;
+  width:28px!important;height:56px!important;
+  padding:0!important;margin:0!important;
+  border:1px solid rgba(129,140,248,.34)!important;border-right:0!important;
+  border-radius:14px 0 0 14px!important;
+  display:grid!important;place-items:center!important;
+  z-index:10090!important;
+  background:rgba(10,15,28,.98)!important;color:#a5b4fc!important;
+}
+.v7-tools-trigger.is-open{right:240px!important}
+
+/* AUDIO: closed state is completely below the viewport. No player pixels may peek out. */
+.audio-player.audio-dock{
+  position:fixed!important;left:50%!important;right:auto!important;
+  bottom:calc(var(--v8-nav) + 6px + var(--v8-safe))!important;
+  width:min(720px,calc(100vw - 20px))!important;
+  height:var(--v8-audio)!important;min-height:var(--v8-audio)!important;
+  box-sizing:border-box!important;
+  z-index:10060!important;
+  overflow:hidden!important;
+  transform:translate(-50%,calc(100% + 160px))!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+  opacity:0!important;
+  transition:transform .30s cubic-bezier(.2,.8,.2,1),opacity .18s ease,visibility 0s linear .30s!important;
+}
+.audio-player.audio-dock.is-open{
+  transform:translate(-50%,0)!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+  opacity:1!important;
+  transition:transform .30s cubic-bezier(.2,.8,.2,1),opacity .18s ease,visibility 0s!important;
+}
+.audio-player.audio-dock audio{width:100%!important;height:48px!important;display:block!important}
+
+/* Separate tiny audio handle. It remains accessible while the player itself is hidden. */
+.v7-audio-trigger{
+  position:fixed!important;left:50%!important;
+  bottom:calc(var(--v8-nav) + 2px + var(--v8-safe))!important;
+  transform:translateX(-50%)!important;
+  width:64px!important;height:12px!important;
+  padding:0!important;margin:0!important;
+  border:1px solid rgba(129,140,248,.34)!important;border-bottom:0!important;
+  border-radius:10px 10px 0 0!important;
+  display:grid!important;place-items:center!important;
+  z-index:10075!important;
+  background:rgba(10,15,28,.98)!important;color:#a5b4fc!important;
+  box-shadow:0 -3px 12px rgba(0,0,0,.14)!important;
+}
+.v7-audio-trigger i{font-size:9px!important;line-height:1!important}
+.v7-audio-trigger.is-open{
+  bottom:calc(var(--v8-nav) + var(--v8-audio) + 6px + var(--v8-safe))!important;
+}
+
+/* Album/folder covers: one consistent visual size on every homepage card. */
+.gallery-grid .card-link .img-wrapper{
+  width:100%!important;
+  height:220px!important;
+  aspect-ratio:16/10!important;
+  overflow:hidden!important;
+  background:#111827!important;
+}
+.gallery-grid .card-link .img-wrapper img{
+  width:100%!important;height:100%!important;
+  min-height:0!important;max-height:none!important;
+  aspect-ratio:16/10!important;
+  object-fit:cover!important;display:block!important;
+}
+
+/* Light mode */
+body.ui-light .v7-tools-trigger,body.ui-light .v7-audio-trigger{
+  background:#fffaf2!important;color:#514a91!important;border-color:#ded7cc!important;
+}
+@media(max-width:700px){
+  :root{--v8-nav:68px;--v8-audio:70px}
+  #uiTop.ui-top-fixed{right:14px!important;bottom:calc(var(--v8-nav) + 14px + var(--v8-safe))!important;width:48px!important;height:48px!important}
+  .ui-tools{right:-225px!important;width:205px!important;max-width:205px!important}
+  .ui-tools.is-open{right:0!important}
+  .v7-tools-trigger.is-open{right:205px!important}
+  .audio-player.audio-dock{width:calc(100vw - 16px)!important}
+  .gallery-grid .card-link .img-wrapper{height:190px!important}
+}
+@media(max-width:420px){
+  .gallery-grid .card-link .img-wrapper{height:175px!important}
+}
+</style>
+
 </head>
 <body>
 <div class="album-progress" id="albumProgress"></div>
@@ -324,7 +514,7 @@ body.ui-light .ui-toolbar{background:rgba(255,255,255,.7)}
     </button>
 
     <!-- PEMUTAR MUSIK LATAR -->
-    <div class="audio-player">
+    <div class="audio-player audio-dock">
         <i class="fa-solid fa-music" style="color: #818cf8;"></i>
         <audio id="bgMusic" controls loop preload="auto">
             <source src="upayy.mp3" type="audio/mpeg">
@@ -553,5 +743,148 @@ body.ui-light .ui-toolbar{background:rgba(255,255,255,.7)}
 })();
 </script>
 
+
+
+
+
+
+
+
+
+
+<script id="v7-layout-js">
+(function(){
+'use strict';
+const tools=document.querySelector('.ui-tools');
+const audio=document.querySelector('.audio-player');
+const body=document.body;
+
+/* Right controls: only a fixed three-dot tab remains visible while closed. */
+if(tools){
+  const oldHandle=tools.querySelector('.ui-drawer-handle');
+  if(oldHandle) oldHandle.remove();
+  const trigger=document.createElement('button');
+  trigger.type='button';
+  trigger.className='v7-tools-trigger';
+  trigger.setAttribute('aria-label','Buka menu tampilan');
+  trigger.setAttribute('aria-expanded','false');
+  trigger.innerHTML='<i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>';
+  body.appendChild(trigger);
+  let open=false,downX=0,moved=false;
+  function setOpen(v){open=!!v;tools.classList.toggle('is-open',open);trigger.classList.toggle('is-open',open);trigger.setAttribute('aria-expanded',String(open));trigger.setAttribute('aria-label',open?'Tutup menu tampilan':'Buka menu tampilan');trigger.innerHTML=open?'<i class="fa-solid fa-xmark" aria-hidden="true"></i>':'<i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>';}
+  trigger.addEventListener('click',()=>{if(!moved)setOpen(!open);moved=false;});
+  trigger.addEventListener('pointerdown',e=>{downX=e.clientX;moved=false;trigger.setPointerCapture?.(e.pointerId);});
+  trigger.addEventListener('pointermove',e=>{if(Math.abs(e.clientX-downX)>8)moved=true;});
+  trigger.addEventListener('pointerup',e=>{const dx=e.clientX-downX;if(Math.abs(dx)>20)setOpen(dx<0);moved=false;});
+  addEventListener('scroll',()=>setOpen(false),{passive:true});
+}
+
+/* Scroll-to-top stays independent and always available. */
+const top=document.getElementById('uiTop');
+if(top){top.removeAttribute('hidden');top.className='ui-top-fixed';if(top.parentElement!==body)body.appendChild(top);addEventListener('scroll',()=>{top.hidden=false;},{passive:true});}
+
+/* Audio: the panel itself is never used as the drag handle. A separate fixed tab is used. */
+if(audio){
+  audio.classList.add('audio-dock');
+  const old=audio.querySelector('.audio-toggle');
+  if(old) old.remove();
+  const trigger=document.createElement('button');
+  trigger.type='button';trigger.className='v7-audio-trigger';
+  trigger.setAttribute('aria-label','Buka pemutar audio');trigger.setAttribute('aria-expanded','false');
+  trigger.innerHTML='<i class="fa-solid fa-chevron-up" aria-hidden="true"></i>';
+  body.appendChild(trigger);
+  let open=false,downY=0,moved=false;
+  function setOpen(v){open=!!v;audio.classList.toggle('is-open',open);trigger.classList.toggle('is-open',open);trigger.setAttribute('aria-expanded',String(open));trigger.setAttribute('aria-label',open?'Tutup pemutar audio':'Buka pemutar audio');trigger.innerHTML=open?'<i class="fa-solid fa-chevron-down" aria-hidden="true"></i>':'<i class="fa-solid fa-chevron-up" aria-hidden="true"></i>';}
+  trigger.addEventListener('click',()=>{if(!moved)setOpen(!open);moved=false;});
+  trigger.addEventListener('pointerdown',e=>{downY=e.clientY;moved=false;trigger.setPointerCapture?.(e.pointerId);});
+  trigger.addEventListener('pointermove',e=>{if(Math.abs(e.clientY-downY)>8)moved=true;});
+  trigger.addEventListener('pointerup',e=>{const dy=e.clientY-downY;if(Math.abs(dy)>20)setOpen(dy<0);moved=false;});
+  addEventListener('scroll',()=>setOpen(false),{passive:true});
+  setOpen(false);
+}
+})();
+</script>
+
+<script id="v8-final-layout-js">
+(function(){
+  'use strict';
+  const body=document.body;
+
+  /* Remove the old floating top button entirely, leaving V8's #uiTop as the only one. */
+  const legacyTop=document.getElementById('scrollTopBtn');
+  if(legacyTop) legacyTop.remove();
+  const top=document.getElementById('uiTop');
+  if(top){
+    top.hidden=false;
+    top.className='ui-top-fixed';
+    if(top.parentElement!==body) body.appendChild(top);
+    top.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  /* Right controls: closed state exposes only the 3-dot trigger. */
+  const tools=document.querySelector('.ui-tools');
+  if(tools){
+    const oldHandle=tools.querySelector('.ui-drawer-handle');
+    if(oldHandle) oldHandle.remove();
+    const oldTrigger=document.querySelector('.v7-tools-trigger');
+    if(oldTrigger) oldTrigger.remove();
+    const trigger=document.createElement('button');
+    trigger.type='button';
+    trigger.className='v7-tools-trigger';
+    trigger.setAttribute('aria-label','Buka menu tampilan');
+    trigger.setAttribute('aria-expanded','false');
+    trigger.innerHTML='<i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>';
+    body.appendChild(trigger);
+    let open=false,downX=0,moved=false;
+    function setOpen(v){
+      open=!!v;
+      tools.classList.toggle('is-open',open);
+      trigger.classList.toggle('is-open',open);
+      trigger.setAttribute('aria-expanded',String(open));
+      trigger.innerHTML=open?'<i class="fa-solid fa-xmark" aria-hidden="true"></i>':'<i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>';
+    }
+    trigger.addEventListener('click',()=>{if(!moved)setOpen(!open);moved=false});
+    trigger.addEventListener('pointerdown',e=>{downX=e.clientX;moved=false;trigger.setPointerCapture?.(e.pointerId)});
+    trigger.addEventListener('pointermove',e=>{if(Math.abs(e.clientX-downX)>8)moved=true});
+    trigger.addEventListener('pointerup',e=>{const dx=e.clientX-downX;if(Math.abs(dx)>20)setOpen(dx<0);moved=false});
+    window.addEventListener('scroll',()=>setOpen(false),{passive:true});
+    setOpen(false);
+  }
+
+  /* Audio: separate trigger; closed player is fully invisible and non-interactive. */
+  const audio=document.querySelector('.audio-player');
+  if(audio){
+    audio.classList.add('audio-dock');
+    audio.classList.remove('is-open');
+    const old=audio.querySelector('.audio-toggle');
+    if(old) old.remove();
+    const oldTriggers=document.querySelectorAll('.v7-audio-trigger');
+    oldTriggers.forEach(el=>el.remove());
+    const trigger=document.createElement('button');
+    trigger.type='button';
+    trigger.className='v7-audio-trigger';
+    trigger.setAttribute('aria-label','Buka pemutar audio');
+    trigger.setAttribute('aria-expanded','false');
+    trigger.innerHTML='<i class="fa-solid fa-chevron-up" aria-hidden="true"></i>';
+    body.appendChild(trigger);
+    let open=false,downY=0,moved=false;
+    function setOpen(v){
+      open=!!v;
+      audio.classList.toggle('is-open',open);
+      trigger.classList.toggle('is-open',open);
+      trigger.setAttribute('aria-expanded',String(open));
+      trigger.innerHTML=open?'<i class="fa-solid fa-chevron-down" aria-hidden="true"></i>':'<i class="fa-solid fa-chevron-up" aria-hidden="true"></i>';
+    }
+    trigger.addEventListener('click',()=>{if(!moved)setOpen(!open);moved=false});
+    trigger.addEventListener('pointerdown',e=>{downY=e.clientY;moved=false;trigger.setPointerCapture?.(e.pointerId)});
+    trigger.addEventListener('pointermove',e=>{if(Math.abs(e.clientY-downY)>8)moved=true});
+    trigger.addEventListener('pointerup',e=>{const dy=e.clientY-downY;if(Math.abs(dy)>18)setOpen(dy<0);moved=false});
+    window.addEventListener('scroll',()=>setOpen(false),{passive:true});
+    setOpen(false);
+  }
+})();
+</script>
+
 </body>
 </html>
+
