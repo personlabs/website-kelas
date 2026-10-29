@@ -1,24 +1,10 @@
-
 {
-  "id": "./",
-  "name": "Lensa Kebersamaan XII IPS-1",
-  "short_name": "XII IPS-1",
-  "description": "Dokumentasi dan kenangan kelas XII IPS-1 MAN 1 Bangka",
-  "start_url": "./",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#08090d",
-  "theme_color": "#08090d",
-  "icons": [
-    {
-      "src": "./icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "./icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+  "name":"XII IPS-1 MAN 1 Bangka — Lensa Kebersamaan",
+  "short_name":"Lensa XII IPS-1",
+  "start_url":"./index.html",
+  "display":"standalone",
+  "background_color":"#0b0f19",
+  "theme_color":"#0b0f19",
+  "lang":"id",
+  "description":"Website dokumentasi dan kenangan XII IPS-1 MAN 1 Bangka."
 }

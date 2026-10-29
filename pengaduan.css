@@ -1,0 +1,102 @@
+
+
+/* ===== Extracted from original pengaduan.html.html ===== */
+body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #161b22;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        h2 {
+            text-align: center;
+            color: #58a6ff;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #58a6ff;
+        }
+        textarea {
+            resize: vertical;
+            height: 120px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .checkbox-group input {
+            width: auto;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #238636;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #2ea043;
+        }
+        .thank-you {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+        .thank-you i {
+            font-size: 50px;
+            color: #3fb950;
+            margin-bottom: 15px;
+        }
+        .alert-box {
+            background: rgba(88, 166, 255, 0.15);
+            border: 1px solid #58a6ff;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            color: #58a6ff;
+        }
+
+html{scroll-behavior:smooth}
+body{background-image:radial-gradient(at 0% 0%,rgba(88,166,255,.12),transparent 50%),radial-gradient(at 100% 100%,rgba(63,185,80,.08),transparent 50%)}
+.container{border:1px solid rgba(255,255,255,.07);backdrop-filter:blur(14px)}
+.form-hint{display:block;color:#8b949e;font-size:12px;margin-top:6px}
+.char-count{text-align:right;color:#8b949e;font-size:12px;margin-top:5px}
+#fullMessage{min-height:150px}
+#reporterName:disabled{opacity:.5}
+button:disabled{cursor:not-allowed;opacity:.7}
+@media(max-width:640px){body{padding:12px}.container{padding:22px 18px;border-radius:18px}h2{font-size:1.35rem}}
