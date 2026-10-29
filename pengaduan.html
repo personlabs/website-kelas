@@ -1,80 +1,108 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kotak Saran & Aspirasi Kelas</title>
-    <!-- FontAwesome untuk Icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-
-
-<link rel="stylesheet" href="assets/site.css">
-    <link rel="stylesheet" href="assets/css/pengaduan.css">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Kotak Saran &amp; Aspirasi Kelas
+  </title>
+  <!-- FontAwesome untuk Icon -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="assets/css/pengaduan.css" rel="stylesheet"/>
+  <meta content="Kotak saran dan aspirasi kelas XII IPS-1 MAN 1 Bangka." name="description"/>
+ <script src="assets/js/cleanup-sw.js"></script>
+  <link href="assets/css/site-ui.css" rel="stylesheet">
 </head>
-<body>
-
-<div class="container">
-    <!-- Form Container -->
-    <div id="formContainer">
-        <h2>Kotak Saran & Aspirasi Kelas</h2>
-        
-        <div class="alert-box">
-            <i class="fa-solid fa-lightbulb"></i> Sampaikan ide, masukan, atau aspirasi membangun untuk kemajuan dan kenyamanan kelas kita bersama.
-        </div>
-
-        <!-- Tambahkan action dan method agar Formspree mengenali endpoint -->
-        <form id="complaintForm" action="https://formspree.io/f/xqpeqenv" method="POST">
-            <div class="form-group">
-                <label for="reporterName">Nama Pengirim (Opsional)</label>
-<input type="text" id="reporterName" name="Nama_Pengirim" autocomplete="name" maxlength="60" placeholder="Nama kamu (boleh dikosongkan)">
-<span class="form-hint">Jika mode anonim aktif, nama tidak dikirim.</span>
-            </div>
-
-            <div class="checkbox-group">
-                <input type="checkbox" id="isAnonymous" name="Anonim" checked>
-                <label for="isAnonymous" style="margin-bottom:0; cursor:pointer;">Kirim sebagai Anonim (Sembunyikan Nama)</label>
-            </div>
-
-            <div class="form-group">
-                <label>Kategori Saran / Aspirasi *</label>
-                <select id="category" name="Kategori" required>
-                    <option value="">-- Pilih Kategori --</option>
-                    <option value="Kebersihan & Kenyamanan Kelas">Kebersihan & Kenyamanan Kelas</option>
-                    <option value="Fasilitas & Inventaris Kelas">Fasilitas & Inventaris Kelas</option>
-                    <option value="Kegiatan / Acara Kelas">Kegiatan / Acara Kelas</option>
-                    <option value="Pembelajaran & Akademik">Pembelajaran & Akademik</option>
-                    <option value="Lainnya">Lainnya</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Isi Saran / Aspirasi *</label>
-                <textarea id="fullMessage" name="Isi_Saran" required minlength="10" maxlength="1000" placeholder="Tuliskan ide, kritik membangun, atau saran Anda di sini..."></textarea>
-<div class="char-count"><span id="charCount">0</span>/1000</div>
-            </div>
-
-            <button type="submit" id="submitBtn">
-                <i class="fa-solid fa-paper-plane"></i> Kirim Saran
-            </button>
-        </form>
+ <body>
+  <div class="container">
+   <!-- Form Container -->
+   <div id="formContainer">
+    <h2>
+     Kotak Saran &amp; Aspirasi Kelas
+    </h2>
+    <div class="alert-box">
+     <i class="fa-solid fa-lightbulb">
+     </i>
+     Sampaikan ide, masukan, atau aspirasi membangun untuk kemajuan dan kenyamanan kelas kita bersama.
     </div>
-
-    <!-- Thank You Container -->
-    <div id="thankYouContainer" class="thank-you">
-        <i class="fa-solid fa-circle-check"></i>
-        <h3>Saran Berhasil Terkirim!</h3>
-        <p>Terima kasih, masukan dan aspirasi Anda telah diterima untuk kemajuan kelas kita bersama.</p>
-        <button type="button" id="newSuggestionBtn" style="margin-top: 20px; width: auto; padding: 10px 20px;">Kirim Saran Lain</button>
-    </div>
-</div>
-
-
-
-
-
-<footer class="page-footer">XII IPS-1 MAN 1 Bangka · Lensa Kebersamaan · <a href="index.html">Beranda</a></footer>
-
-    <script src="assets/js/pengaduan.js" defer></script>
+    <!-- Tambahkan action dan method agar Formspree mengenali endpoint -->
+    <form action="https://formspree.io/f/xqpeqenv" id="complaintForm" method="POST">
+     <div class="form-group">
+      <label for="reporterName">
+       Nama Pengirim (Opsional)
+      </label>
+      <input autocomplete="name" id="reporterName" maxlength="60" name="Nama_Pengirim" placeholder="Nama kamu (boleh dikosongkan)" type="text"/>
+      <span class="form-hint">
+       Jika mode anonim aktif, nama tidak dikirim.
+      </span>
+     </div>
+     <div class="checkbox-group">
+      <input checked="" id="isAnonymous" name="Anonim" type="checkbox"/>
+      <label for="isAnonymous" style="margin-bottom:0; cursor:pointer;">
+       Kirim sebagai Anonim (Sembunyikan Nama)
+      </label>
+     </div>
+     <div class="form-group">
+      <label>
+       Kategori Saran / Aspirasi *
+      </label>
+      <select id="category" name="Kategori" required="">
+       <option value="">
+        -- Pilih Kategori --
+       </option>
+       <option value="Kebersihan &amp; Kenyamanan Kelas">
+        Kebersihan &amp; Kenyamanan Kelas
+       </option>
+       <option value="Fasilitas &amp; Inventaris Kelas">
+        Fasilitas &amp; Inventaris Kelas
+       </option>
+       <option value="Kegiatan / Acara Kelas">
+        Kegiatan / Acara Kelas
+       </option>
+       <option value="Pembelajaran &amp; Akademik">
+        Pembelajaran &amp; Akademik
+       </option>
+       <option value="Lainnya">
+        Lainnya
+       </option>
+      </select>
+     </div>
+     <div class="form-group">
+      <label>
+       Isi Saran / Aspirasi *
+      </label>
+      <textarea id="fullMessage" maxlength="1000" minlength="10" name="Isi_Saran" placeholder="Tuliskan ide, kritik membangun, atau saran Anda di sini..." required=""></textarea>
+      <div class="char-count">
+       <span id="charCount">
+        0
+       </span>
+       /1000
+      </div>
+     </div>
+     <button id="submitBtn" type="submit">
+      <i class="fa-solid fa-paper-plane">
+      </i>
+      Kirim Saran
+     </button>
+    </form>
+   </div>
+   <!-- Thank You Container -->
+   <div class="thank-you" id="thankYouContainer">
+    <i class="fa-solid fa-circle-check">
+    </i>
+    <h3>
+     Saran Berhasil Terkirim!
+    </h3>
+    <p>
+     Terima kasih, masukan dan aspirasi Anda telah diterima untuk kemajuan kelas kita bersama.
+    </p>
+    <button id="newSuggestionBtn" style="margin-top: 20px; width: auto; padding: 10px 20px;" type="button">
+     Kirim Saran Lain
+    </button>
+   </div>
+  </div>
+  <script defer="True" src="assets/js/pengaduan.js">
+  </script>
+   <script defer src="assets/js/site-ui.js"></script>
 </body>
 </html>

@@ -1,6 +1,3 @@
-
-
-/* ===== Extracted from original index.html.html ===== */
 /* =========================================================
            RESET
         ========================================================= */
@@ -1501,7 +1498,6 @@ body::before {
   font: inherit;
   font-size: .82rem;
   font-weight: 700;
-  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -1715,10 +1711,24 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     .audio-player { left: 10px; right: 10px; width: auto; }
   }
 
-
-/* UI v2 additions */
-.hero-photo-section,.about-card,.student-list-item,.quote-container{box-shadow:0 14px 45px rgba(0,0,0,.16)}
-.student-list-item{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
-.student-list-item:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(99,102,241,.12)}
-.quote-container{cursor:pointer}
-@media(max-width:640px){.quick-nav{overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;padding-bottom:3px}.nav-pill{flex:0 0 auto}.sticky-nav-wrapper{padding:.75rem}.hero-photo-section{margin-top:0}}
+/* =========================================================
+   SAFE FINAL POLISH
+   Tidak mengubah struktur halaman asli.
+========================================================= */
+html { -webkit-text-size-adjust: 100%; }
+body { overflow-x: hidden; }
+button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+img { max-width: 100%; }
+.nav-pill { -webkit-tap-highlight-color: transparent; }
+.search-hidden { display: none !important; }
+.reveal-on-scroll { will-change: opacity, transform; }
+@media (max-width: 640px) {
+  .quick-nav { gap: 8px; overflow-x: auto; justify-content: flex-start; padding-bottom: 4px; scrollbar-width: none; }
+  .quick-nav::-webkit-scrollbar { display: none; }
+  .nav-pill { flex: 0 0 auto; }
+  .student-tools { gap: 10px; }
+  .student-search-wrap { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
