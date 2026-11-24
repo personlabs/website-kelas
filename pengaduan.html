@@ -159,11 +159,11 @@
 <body>
 
 <div class="container">
-    <!-- Navigasi Menu Utama -->
+    <!-- Navigasi Menu Utama (Menggunakan 'this' agar aman di semua HP) -->
     <div class="nav-tabs">
-        <button class="nav-tab active" onclick="switchTab('formTab')"><i class="fa-solid fa-pen-to-square"></i> Kirim Aspirasi</button>
-        <button class="nav-tab" onclick="switchTab('trackTab')"><i class="fa-solid fa-magnifying-glass"></i> Pelacakan</button>
-        <button class="nav-tab" onclick="switchTab('adminTab')" style="border-color: var(--warning-color);"><i class="fa-solid fa-user-shield"></i> Pengurus</button>
+        <button class="nav-tab active" onclick="switchTab('formTab', this)"><i class="fa-solid fa-pen-to-square"></i> Kirim Aspirasi</button>
+        <button class="nav-tab" onclick="switchTab('trackTab', this)"><i class="fa-solid fa-magnifying-glass"></i> Pelacakan</button>
+        <button class="nav-tab" onclick="switchTab('adminTab', this)" style="border-color: var(--warning-color);"><i class="fa-solid fa-user-shield"></i> Pengurus</button>
     </div>
 
     <!-- 1. TAB KIRIM ASPIRASI (Publik) -->
@@ -279,20 +279,38 @@
 </div>
 
 <script>
-    // Inisialisasi Data dari LocalStorage
-    let aspirations = JSON.parse(localStorage.getItem('class_aspirations')) || [];
-    let isAdminLoggedIn = sessionStorage.getItem('admin_logged_in') === 'true';
-
-    function saveToStorage() {
-        localStorage.setItem('class_aspirations', JSON.stringify(aspirations));
+    // Inisialisasi Data Aman dengan Try-Catch (Mencegah error di browser HP)
+    let aspirations = [];
+    try {
+        aspirations = JSON.parse(localStorage.getItem('class_aspirations')) || [];
+    } catch (e) {
+        console.warn('LocalStorage tidak didukung atau diblokir:', e);
     }
 
-    // Navigasi Tab
-    function switchTab(tabId) {
+    let isAdminLoggedIn = false;
+    try {
+        isAdminLoggedIn = sessionStorage.getItem('admin_logged_in') === 'true';
+    } catch (e) {}
+
+    function saveToStorage() {
+        try {
+            localStorage.setItem('class_aspirations', JSON.stringify(aspirations));
+        } catch (e) {
+            alert('Penyimpanan lokal penuh atau diblokir browser. Data mungkin tidak tersimpan permanen.');
+        }
+    }
+
+    // Navigasi Tab (Menggunakan parameter button element langsung agar aman di HP)
+    function switchTab(tabId, btnElement) {
         document.querySelectorAll('.section-view').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
+        
+        const targetView = document.getElementById(tabId);
+        if (targetView) targetView.classList.add('active');
+        
+        if (btnElement) {
+            btnElement.classList.add('active');
+        }
         
         if(tabId === 'adminTab') {
             checkAdminSession();
@@ -309,7 +327,9 @@
         const validPassword = "kelashebat123";
 
         if (user === validUsername && pass === validPassword) {
-            sessionStorage.setItem('admin_logged_in', 'true');
+            try {
+                sessionStorage.setItem('admin_logged_in', 'true');
+            } catch (e) {}
             isAdminLoggedIn = true;
             document.getElementById('adminUsername').value = '';
             document.getElementById('adminPassword').value = '';
@@ -320,7 +340,9 @@
     }
 
     function logoutAdmin() {
-        sessionStorage.removeItem('admin_logged_in');
+        try {
+            sessionStorage.removeItem('admin_logged_in');
+        } catch (e) {}
         isAdminLoggedIn = false;
         checkAdminSession();
     }
@@ -341,34 +363,55 @@
 
     // Penghitung Karakter
     const msgInput = document.getElementById('fullMessage');
-    msgInput.addEventListener('input', () => {
-        document.getElementById('charCount').textContent = msgInput.value.length;
-    });
+    if (msgInput) {
+        msgInput.addEventListener('input', () => {
+            document.getElementById('charCount').textContent = msgInput.value.length;
+        });
+    }
 
     // Kirim Form (Publik)
-    document.getElementById('complaintForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const newAsp = {
-            id: 'ASP-' + Date.now().toString().slice(-6),
-            name: document.getElementById('reporterName').value.trim(),
-            category: document.getElementById('category').value,
-            message: document.getElementById('fullMessage').value.trim(),
-            status: 'Menunggu',
-            response: '-',
-            date: new Date().toLocaleDateString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
-        };
-        aspirations.unshift(newAsp);
-        saveToStorage();
-        alert('Aspirasi berhasil dikirim dengan ID: ' + newAsp.id);
-        this.reset();
-        document.getElementById('charCount').textContent = '0';
-    });
+    const complaintForm = document.getElementById('complaintForm');
+    if (complaintForm) {
+        complaintForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nameVal = document.getElementById('reporterName').value.trim();
+            const catVal = document.getElementById('category').value;
+            const msgVal = document.getElementById('fullMessage').value.trim();
+
+            if (!nameVal || !catVal || !msgVal) {
+                alert('Semua kolom bertanda * wajib diisi!');
+                return;
+            }
+
+            const newAsp = {
+                id: 'ASP-' + Date.now().toString().slice(-6),
+                name: nameVal,
+                category: catVal,
+                message: msgVal,
+                status: 'Menunggu',
+                response: '-',
+                date: new Date().toLocaleDateString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
+            };
+
+            aspirations.unshift(newAsp);
+            saveToStorage();
+            
+            alert('Aspirasi berhasil dikirim! ID Aspirasi Anda: ' + newAsp.id);
+            this.reset();
+            const charCountEl = document.getElementById('charCount');
+            if (charCountEl) charCountEl.textContent = '0';
+        });
+    }
 
     // Pelacakan Aspirasi Siswa (Publik)
     function trackAspirations() {
         const query = document.getElementById('searchTrackName').value.trim().toLowerCase();
         const container = document.getElementById('trackResult');
-        if(!query) { container.innerHTML = '<p style="color:var(--danger-color)">Masukkan nama terlebih dahulu.</p>'; return; }
+        if(!query) { 
+            container.innerHTML = '<p style="color:var(--danger-color)">Masukkan nama terlebih dahulu.</p>'; 
+            return; 
+        }
         
         const results = aspirations.filter(item => item.name.toLowerCase().includes(query));
         if(results.length === 0) {
@@ -391,7 +434,7 @@
         `).join('');
     }
 
-    // Update Statistik & Grafik Batang
+        // Update Statistik & Grafik Batang
     function updateStats() {
         if (!isAdminLoggedIn) return;
         const total = aspirations.length;
@@ -431,8 +474,10 @@
     // Dashboard Pengurus
     function renderAdminDashboard() {
         if (!isAdminLoggedIn) return;
-        const search = document.getElementById('adminSearch').value.toLowerCase();
-        const filterStatus = document.getElementById('adminFilterStatus').value;
+        const searchInput = document.getElementById('adminSearch');
+        const filterStatusEl = document.getElementById('adminFilterStatus');
+        const search = searchInput ? searchInput.value.toLowerCase() : '';
+        const filterStatus = filterStatusEl ? filterStatusEl.value : '';
         const listContainer = document.getElementById('adminList');
 
         let filtered = aspirations.filter(item => {
@@ -481,7 +526,8 @@
 
     function saveResponse(id) {
         let item = aspirations.find(a => a.id === id);
-        let respText = document.getElementById('resp-' + id).value.trim();
+        let respInput = document.getElementById('resp-' + id);
+        let respText = respInput ? respInput.value.trim() : '';
         if(item) {
             item.response = respText || '-';
             saveToStorage();
