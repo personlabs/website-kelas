@@ -3,140 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kotak Saran & Aspirasi Kelas</title>
+    <title>Kotak Saran & Aspirasi Kelas Terpadu</title>
     <!-- FontAwesome untuk Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --bg-color: #0d1117;
+            --container-bg: #161b22;
+            --text-color: #c9d1d9;
+            --border-color: #30363d;
+            --accent-color: #58a6ff;
+            --success-color: #238636;
+            --warning-color: #d29922;
+            --danger-color: #f85149;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0d1117;
-            color: #c9d1d9;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
             padding: 20px;
+            background-image: radial-gradient(at 0% 0%, rgba(88,166,255,.12), transparent 50%), radial-gradient(at 100% 100%, rgba(63,185,80,.08), transparent 50%);
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
-            background: #161b22;
+            background: var(--container-bg);
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,.07);
+            backdrop-filter: blur(14px);
         }
-        h2 {
-            text-align: center;
-            color: #58a6ff;
+        /* Navigasi Tab */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
             margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            flex-wrap: wrap;
         }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
+        .nav-tab {
+            background: #21262d;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
             font-weight: 600;
+            transition: all 0.2s;
         }
+        .nav-tab.active, .nav-tab:hover {
+            background: var(--accent-color);
+            color: #fff;
+            border-color: var(--accent-color);
+        }
+        .section-view { display: none; }
+        .section-view.active { display: block; }
+
+        h2 { color: var(--accent-color); margin-top: 0; text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; }
         input, select, textarea {
             width: 100%;
             padding: 12px;
-            background: #0d1117;
-            border: 1px solid #30363d;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
             border-radius: 6px;
-            color: #c9d1d9;
+            color: var(--text-color);
             box-sizing: border-box;
             font-size: 14px;
         }
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #58a6ff;
+            border-color: var(--accent-color);
         }
-        textarea {
-            resize: vertical;
-            height: 120px;
-        }
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .checkbox-group input {
-            width: auto;
-        }
+        textarea { resize: vertical; height: 120px; }
+        .char-count { text-align: right; color: #8b949e; font-size: 12px; margin-top: 5px; }
+
         button {
-            width: 100%;
-            padding: 12px;
-            background: #238636;
+            padding: 10px 16px;
+            background: var(--success-color);
             color: white;
             border: none;
             border-radius: 6px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: opacity 0.2s;
         }
-        button:hover {
-            background: #2ea043;
-        }
-        .thank-you {
-            display: none;
-            text-align: center;
-            padding: 40px 0;
-        }
-        .thank-you i {
-            font-size: 50px;
-            color: #3fb950;
+        button:hover { opacity: 0.9; }
+        button.btn-danger { background: var(--danger-color); }
+        button.btn-warning { background: var(--warning-color); color: #000; }
+
+        /* Card Aspirasi */
+        .card-item {
+            background: #21262d;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 8px;
             margin-bottom: 15px;
         }
-        .alert-box {
-            background: rgba(88, 166, 255, 0.15);
-            border: 1px solid #58a6ff;
-            padding: 12px;
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .badge-menunggu { background: rgba(210, 153, 34, 0.2); color: var(--warning-color); border: 1px solid var(--warning-color); }
+        .badge-diproses { background: rgba(88, 166, 255, 0.2); color: var(--accent-color); border: 1px solid var(--accent-color); }
+        .badge-selesai { background: rgba(35, 134, 54, 0.2); color: var(--success-color); border: 1px solid var(--success-color); }
+
+        /* Statistik Grid (Khusus Pengurus) */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .stat-card {
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-card h3 { margin: 0 0 6px 0; font-size: 22px; color: var(--accent-color); }
+        .stat-card p { margin: 0; font-size: 12px; color: #8b949e; }
+
+        /* Bar Grafik Sederhana */
+        .chart-bar-bg {
+            background: #0d1117;
             border-radius: 6px;
-            font-size: 13px;
-            margin-bottom: 20px;
-            color: #58a6ff;
+            height: 10px;
+            width: 100%;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+        .chart-bar-fill {
+            height: 100%;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        @media(max-width:640px) {
+            body { padding: 10px; }
+            .container { padding: 15px; }
+            .nav-tabs { justify-content: center; }
         }
     </style>
-
-<style>
-html{scroll-behavior:smooth}
-body{background-image:radial-gradient(at 0% 0%,rgba(88,166,255,.12),transparent 50%),radial-gradient(at 100% 100%,rgba(63,185,80,.08),transparent 50%)}
-.container{border:1px solid rgba(255,255,255,.07);backdrop-filter:blur(14px)}
-.form-hint{display:block;color:#8b949e;font-size:12px;margin-top:6px}
-.char-count{text-align:right;color:#8b949e;font-size:12px;margin-top:5px}
-#fullMessage{min-height:150px}
-#reporterName:disabled{opacity:.5}
-button:disabled{cursor:not-allowed;opacity:.7}
-@media(max-width:640px){body{padding:12px}.container{padding:22px 18px;border-radius:18px}h2{font-size:1.35rem}}
-</style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Form Container -->
-    <div id="formContainer">
+    <!-- Navigasi Menu Utama -->
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="switchTab('formTab')"><i class="fa-solid fa-pen-to-square"></i> Kirim Aspirasi</button>
+        <button class="nav-tab" onclick="switchTab('trackTab')"><i class="fa-solid fa-magnifying-glass"></i> Pelacakan</button>
+        <button class="nav-tab" onclick="switchTab('adminTab')" style="border-color: var(--warning-color);"><i class="fa-solid fa-user-shield"></i> Pengurus</button>
+    </div>
+
+    <!-- 1. TAB KIRIM ASPIRASI (Publik) -->
+    <div id="formTab" class="section-view active">
         <h2>Kotak Saran & Aspirasi Kelas</h2>
-        
-        <div class="alert-box">
-            <i class="fa-solid fa-lightbulb"></i> Sampaikan ide, masukan, atau aspirasi membangun untuk kemajuan dan kenyamanan kelas kita bersama.
+        <div style="background: rgba(88, 166, 255, 0.15); border: 1px solid var(--accent-color); padding: 12px; border-radius: 6px; font-size: 13px; margin-bottom: 20px; color: var(--accent-color);">
+            <i class="fa-solid fa-lightbulb"></i> Sampaikan ide, masukan, atau aspirasi membangun untuk kemajuan kelas kita.
         </div>
 
-        <!-- Tambahkan action dan method agar Formspree mengenali endpoint -->
-        <form id="complaintForm" action="https://formspree.io/f/xqpeqenv" method="POST">
+        <form id="complaintForm">
             <div class="form-group">
-                <label for="reporterName">Nama Pengirim (Opsional)</label>
-<input type="text" id="reporterName" name="Nama_Pengirim" autocomplete="name" maxlength="60" placeholder="Nama kamu (boleh dikosongkan)">
-<span class="form-hint">Jika mode anonim aktif, nama tidak dikirim.</span>
+                <label for="reporterName">Nama Pengirim *</label>
+                <input type="text" id="reporterName" required placeholder="Nama lengkap kamu">
             </div>
-
-            <div class="checkbox-group">
-                <input type="checkbox" id="isAnonymous" name="Anonim" checked>
-                <label for="isAnonymous" style="margin-bottom:0; cursor:pointer;">Kirim sebagai Anonim (Sembunyikan Nama)</label>
-            </div>
-
             <div class="form-group">
-                <label>Kategori Saran / Aspirasi *</label>
-                <select id="category" name="Kategori" required>
+                <label for="category">Kategori Saran / Aspirasi *</label>
+                <select id="category" required>
                     <option value="">-- Pilih Kategori --</option>
                     <option value="Kebersihan & Kenyamanan Kelas">Kebersihan & Kenyamanan Kelas</option>
                     <option value="Fasilitas & Inventaris Kelas">Fasilitas & Inventaris Kelas</option>
@@ -145,100 +189,352 @@ button:disabled{cursor:not-allowed;opacity:.7}
                     <option value="Lainnya">Lainnya</option>
                 </select>
             </div>
-
             <div class="form-group">
-                <label>Isi Saran / Aspirasi *</label>
-                <textarea id="fullMessage" name="Isi_Saran" required minlength="10" maxlength="1000" placeholder="Tuliskan ide, kritik membangun, atau saran Anda di sini..."></textarea>
-<div class="char-count"><span id="charCount">0</span>/1000</div>
+                <label for="fullMessage">Isi Saran / Aspirasi *</label>
+                <textarea id="fullMessage" required minlength="10" maxlength="1000" placeholder="Tuliskan aspirasimu di sini..."></textarea>
+                <div class="char-count"><span id="charCount">0</span>/1000</div>
             </div>
-
-            <button type="submit" id="submitBtn">
-                <i class="fa-solid fa-paper-plane"></i> Kirim Saran
-            </button>
+            <button type="submit" style="width: 100%;"><i class="fa-solid fa-paper-plane"></i> Kirim Saran</button>
         </form>
     </div>
 
-    <!-- Thank You Container -->
-    <div id="thankYouContainer" class="thank-you">
-        <i class="fa-solid fa-circle-check"></i>
-        <h3>Saran Berhasil Terkirim!</h3>
-        <p>Terima kasih, masukan dan aspirasi Anda telah diterima untuk kemajuan kelas kita bersama.</p>
-        <button onclick="location.reload()" style="margin-top: 20px; width: auto; padding: 10px 20px;">Kirim Saran Lain</button>
+    <!-- 2. TAB PELACAKAN ASPIRASI (Publik) -->
+    <div id="trackTab" class="section-view">
+        <h2>Pelacakan Aspirasi</h2>
+        <p style="font-size: 13px; color: #8b949e;">Masukkan nama pengirim untuk melihat riwayat dan status aspirasi Anda.</p>
+        <div class="form-group" style="display: flex; gap: 10px;">
+            <input type="text" id="searchTrackName" placeholder="Masukkan nama Anda...">
+            <button onclick="trackAspirations()"><i class="fa-solid fa-search"></i> Cari</button>
+        </div>
+        <div id="trackResult"></div>
+    </div>
+
+    <!-- 3. TAB DASHBOARD PENGURUS (Wajib Login Username & Password) -->
+    <div id="adminTab" class="section-view">
+        <!-- Form Login (Muncul jika belum login) -->
+        <div id="adminLoginSection">
+            <h2>Login Pengurus Kelas</h2>
+            <p style="font-size: 13px; color: #8b949e; text-align: center;">Masukkan username dan kata sandi pengurus untuk mengelola aspirasi.</p>
+            <div class="form-group" style="max-width: 400px; margin: 20px auto;">
+                <label for="adminUsername">Username Pengurus</label>
+                <input type="text" id="adminUsername" placeholder="Masukkan username..." style="margin-bottom: 15px;">
+                
+                <label for="adminPassword">Kata Sandi Pengurus</label>
+                <input type="password" id="adminPassword" placeholder="Masukkan password..." onkeypress="if(event.key==='Enter') loginAdmin()">
+                
+                <button onclick="loginAdmin()" style="width: 100%; margin-top: 15px;"><i class="fa-solid fa-right-to-bracket"></i> Masuk Dashboard</button>
+            </div>
+        </div>
+
+        <!-- Konten Dashboard & Statistik (Hanya muncul setelah login) -->
+        <div id="adminDashboardSection" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin: 0;">Dashboard Pengurus</h2>
+                <button onclick="logoutAdmin()" class="btn-danger" style="padding: 6px 12px; font-size: 12px;"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
+            </div>
+
+            <!-- Ringkasan Statistik -->
+            <div class="card-item" style="margin-bottom: 25px;">
+                <h4 style="margin: 0 0 15px 0; color: var(--accent-color);"><i class="fa-solid fa-chart-pie"></i> Ringkasan & Statistik Kelas</h4>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 id="statTotal">0</h3>
+                        <p>Total Aspirasi</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="statMenunggu" style="color: var(--warning-color);">0</h3>
+                        <p>Menunggu</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="statDiproses" style="color: var(--accent-color);">0</h3>
+                        <p>Diproses</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="statSelesai" style="color: var(--success-color);">0</h3>
+                        <p>Selesai</p>
+                    </div>
+                </div>
+                <div style="background: #0d1117; padding: 12px; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <small style="color: #8b949e;">Kategori Paling Sering Dipilih:</small>
+                    <div id="statTopCategory" style="font-weight: bold; font-size: 14px; margin-top: 4px; color: var(--text-color);">-</div>
+                    <div id="categoryChartContainer" style="margin-top: 12px;"></div>
+                </div>
+            </div>
+
+            <!-- Kontrol Pencarian, Filter & Ekspor -->
+            <h4 style="margin: 0 0 12px 0; color: var(--text-color);"><i class="fa-solid fa-list-check"></i> Daftar Aspirasi Masuk</h4>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+                <input type="text" id="adminSearch" placeholder="Cari isi/nama..." onkeyup="renderAdminDashboard()" style="flex: 2; min-width: 180px;">
+                <select id="adminFilterStatus" onchange="renderAdminDashboard()" style="flex: 1; min-width: 130px;">
+                    <option value="">Semua Status</option>
+                    <option value="Menunggu">Menunggu</option>
+                    <option value="Diproses">Diproses</option>
+                    <option value="Selesai">Selesai</option>
+                </select>
+                <button onclick="exportToCSV()" class="btn-warning"><i class="fa-solid fa-file-csv"></i> Ekspor CSV</button>
+            </div>
+            <div id="adminList"></div>
+        </div>
     </div>
 </div>
 
 <script>
-    const form = document.getElementById('complaintForm');
-    const formContainer = document.getElementById('formContainer');
-    const thankYouContainer = document.getElementById('thankYouContainer');
-    const submitBtn = document.getElementById('submitBtn');
+    // Inisialisasi Data dari LocalStorage
+    let aspirations = JSON.parse(localStorage.getItem('class_aspirations')) || [];
+    let isAdminLoggedIn = sessionStorage.getItem('admin_logged_in') === 'true';
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
+    function saveToStorage() {
+        localStorage.setItem('class_aspirations', JSON.stringify(aspirations));
+    }
 
-        let reporterNameInput = document.getElementById('reporterName').value.trim();
-        const isAnonymous = document.getElementById('isAnonymous').checked;
+    // Navigasi Tab
+    function switchTab(tabId) {
+        document.querySelectorAll('.section-view').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
         
-        let reporterName = (isAnonymous || reporterNameInput === '') ? 'Anonim (Dirahasiakan)' : reporterNameInput;
-        let category = document.getElementById('category').value;
-        let fullMessage = document.getElementById('fullMessage').value;
-        
-        let now = new Date();
-        let timeSent = now.toLocaleString('id-ID', { 
-            dateStyle: 'full', 
-            timeStyle: 'medium' 
-        });
+        if(tabId === 'adminTab') {
+            checkAdminSession();
+        }
+    }
 
-        // Ubah tombol jadi status loading
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
+    // Sistem Login Pengurus (Username & Password)
+    function loginAdmin() {
+        const user = document.getElementById('adminUsername').value.trim();
+        const pass = document.getElementById('adminPassword').value;
 
-        // Gunakan FormData untuk mengirim data secara stabil ke Formspree
-        const formData = new FormData();
-        formData.append('Nama_Pengirim', reporterName);
-        formData.append('Kategori', category);
-        formData.append('Isi_Saran', fullMessage);
-        formData.append('Tanggal_Kirim', timeSent);
+        // Atur Username dan Password Pengurus di sini
+        const validUsername = "admin";
+        const validPassword = "kelashebat123";
 
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                formContainer.style.display = 'none';
-                thankYouContainer.style.display = 'block';
-                form.reset();
-            } else {
-                return response.json().then(data => {
-                    if (data.errors) {
-                        alert('Gagal: ' + data.errors.map(err => err.message).join(', '));
-                    } else {
-                        alert('Gagal mengirim saran, silakan coba lagi.');
-                    }
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Saran';
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan jaringan atau koneksi.');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Saran';
-        });
+        if (user === validUsername && pass === validPassword) {
+            sessionStorage.setItem('admin_logged_in', 'true');
+            isAdminLoggedIn = true;
+            document.getElementById('adminUsername').value = '';
+            document.getElementById('adminPassword').value = '';
+            checkAdminSession();
+        } else {
+            alert('Username atau Kata Sandi salah!');
+        }
+    }
+
+    function logoutAdmin() {
+        sessionStorage.removeItem('admin_logged_in');
+        isAdminLoggedIn = false;
+        checkAdminSession();
+    }
+
+    function checkAdminSession() {
+        const loginSec = document.getElementById('adminLoginSection');
+        const dashSec = document.getElementById('adminDashboardSection');
+        if (isAdminLoggedIn) {
+            loginSec.style.display = 'none';
+            dashSec.style.display = 'block';
+            updateStats();
+            renderAdminDashboard();
+        } else {
+            loginSec.style.display = 'block';
+            dashSec.style.display = 'none';
+        }
+    }
+
+    // Penghitung Karakter
+    const msgInput = document.getElementById('fullMessage');
+    msgInput.addEventListener('input', () => {
+        document.getElementById('charCount').textContent = msgInput.value.length;
     });
+
+    // Kirim Form (Publik)
+    document.getElementById('complaintForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const newAsp = {
+            id: 'ASP-' + Date.now().toString().slice(-6),
+            name: document.getElementById('reporterName').value.trim(),
+            category: document.getElementById('category').value,
+            message: document.getElementById('fullMessage').value.trim(),
+            status: 'Menunggu',
+            response: '-',
+            date: new Date().toLocaleDateString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
+        };
+        aspirations.unshift(newAsp);
+        saveToStorage();
+        alert('Aspirasi berhasil dikirim dengan ID: ' + newAsp.id);
+        this.reset();
+        document.getElementById('charCount').textContent = '0';
+    });
+
+    // Pelacakan Aspirasi Siswa (Publik)
+    function trackAspirations() {
+        const query = document.getElementById('searchTrackName').value.trim().toLowerCase();
+        const container = document.getElementById('trackResult');
+        if(!query) { container.innerHTML = '<p style="color:var(--danger-color)">Masukkan nama terlebih dahulu.</p>'; return; }
+        
+        const results = aspirations.filter(item => item.name.toLowerCase().includes(query));
+        if(results.length === 0) {
+            container.innerHTML = '<p style="color:#8b949e; margin-top:15px;">Tidak ditemukan aspirasi dengan nama tersebut.</p>';
+            return;
+        }
+
+        container.innerHTML = results.map(item => `
+            <div class="card-item" style="margin-top: 15px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <strong style="color:var(--accent-color)">${item.id} - ${item.category}</strong>
+                    <span class="badge badge-${item.status.toLowerCase()}">${item.status}</span>
+                </div>
+                <p style="margin:5px 0;"><b>Isi:</b> ${item.message}</p>
+                <p style="margin:5px 0; color:#8b949e; font-size:12px;">Dikirim pada: ${item.date}</p>
+                <div style="background:#161b22; padding:8px; border-radius:4px; margin-top:8px;">
+                    <small style="color:var(--success-color)"><b>Tanggapan Pengurus:</b> ${item.response}</small>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Update Statistik & Grafik Batang
+    function updateStats() {
+        if (!isAdminLoggedIn) return;
+        const total = aspirations.length;
+        document.getElementById('statTotal').textContent = total;
+        document.getElementById('statMenunggu').textContent = aspirations.filter(a => a.status === 'Menunggu').length;
+        document.getElementById('statDiproses').textContent = aspirations.filter(a => a.status === 'Diproses').length;
+        document.getElementById('statSelesai').textContent = aspirations.filter(a => a.status === 'Selesai').length;
+
+        const chartContainer = document.getElementById('categoryChartContainer');
+        if(total === 0) {
+            document.getElementById('statTopCategory').textContent = '-';
+            chartContainer.innerHTML = '';
+            return;
+        }
+
+        let counts = {};
+        aspirations.forEach(a => counts[a.category] = (counts[a.category] || 0) + 1);
+        let topCat = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+        document.getElementById('statTopCategory').textContent = `${topCat} (${counts[topCat]} aspirasi)`;
+
+        chartContainer.innerHTML = Object.entries(counts).map(([cat, count]) => {
+            const pct = Math.round((count / total) * 100);
+            return `
+                <div style="margin-top: 8px; font-size: 12px;">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span>${cat}</span>
+                        <span>${count} (${pct}%)</span>
+                    </div>
+                    <div class="chart-bar-bg">
+                        <div class="chart-bar-fill" style="width: ${pct}%;"></div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Dashboard Pengurus
+    function renderAdminDashboard() {
+        if (!isAdminLoggedIn) return;
+        const search = document.getElementById('adminSearch').value.toLowerCase();
+        const filterStatus = document.getElementById('adminFilterStatus').value;
+        const listContainer = document.getElementById('adminList');
+
+        let filtered = aspirations.filter(item => {
+            let matchSearch = item.message.toLowerCase().includes(search) || item.name.toLowerCase().includes(search) || item.id.toLowerCase().includes(search);
+            let matchStatus = filterStatus ? item.status === filterStatus : true;
+            return matchSearch && matchStatus;
+        });
+
+        if(filtered.length === 0) {
+            listContainer.innerHTML = '<p style="color:#8b949e; text-align:center; padding:20px;">Belum ada data aspirasi.</p>';
+            return;
+        }
+
+        listContainer.innerHTML = filtered.map(item => `
+            <div class="card-item">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span><b>${item.id}</b> - ${item.name} (${item.category})</span>
+                    <span class="badge badge-${item.status.toLowerCase()}">${item.status}</span>
+                </div>
+                <p style="margin:5px 0;">${item.message}</p>
+                <small style="color:#8b949e;">${item.date}</small>
+                
+                <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                    <select onchange="updateStatus('${item.id}', this.value)" style="width:auto; padding:6px; font-size:12px;">
+                        <option value="Menunggu" ${item.status==='Menunggu'?'selected':''}>Menunggu</option>
+                        <option value="Diproses" ${item.status==='Diproses'?'selected':''}>Diproses</option>
+                        <option value="Selesai" ${item.status==='Selesai'?'selected':''}>Selesai</option>
+                    </select>
+                    <input type="text" id="resp-${item.id}" value="${item.response === '-' ? '' : item.response}" placeholder="Tulis balasan..." style="flex:1; padding:6px; font-size:12px; min-width:150px;">
+                    <button onclick="saveResponse('${item.id}')" style="padding:6px 12px; font-size:12px;">Balas</button>
+                    <button onclick="deleteAspiration('${item.id}')" class="btn-danger" style="padding:6px 12px; font-size:12px;"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function updateStatus(id, newStatus) {
+        let item = aspirations.find(a => a.id === id);
+        if(item) {
+            item.status = newStatus;
+            saveToStorage();
+            updateStats();
+            renderAdminDashboard();
+        }
+    }
+
+    function saveResponse(id) {
+        let item = aspirations.find(a => a.id === id);
+        let respText = document.getElementById('resp-' + id).value.trim();
+        if(item) {
+            item.response = respText || '-';
+            saveToStorage();
+            alert('Tanggapan berhasil disimpan.');
+            renderAdminDashboard();
+        }
+    }
+
+    function deleteAspiration(id) {
+        if(confirm('Yakin ingin menghapus aspirasi ini?')) {
+            aspirations = aspirations.filter(a => a.id !== id);
+            saveToStorage();
+            updateStats();
+            renderAdminDashboard();
+        }
+    }
+
+    // Ekspor CSV
+    function exportToCSV() {
+        if (!isAdminLoggedIn) return;
+        if (aspirations.length === 0) {
+            alert('Tidak ada data untuk diekspor.');
+            return;
+        }
+
+        let csvRows = ["\uFEFFID,Nama,Kategori,Status,Tanggal,Isi,Tanggapan"];
+        aspirations.forEach(row => {
+            const escapeCSV = (text) => `"${String(text).replace(/"/g, '""').replace(/\n/g, ' ')}"`;
+            csvRows.push([
+                row.id,
+                escapeCSV(row.name),
+                escapeCSV(row.category),
+                row.status,
+                escapeCSV(row.date),
+                escapeCSV(row.message),
+                escapeCSV(row.response)
+            ].join(","));
+        });
+
+        const csvString = csvRows.join("\n");
+        const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `aspirasi_kelas_${new Date().toISOString().slice(0,10)}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
 </script>
 
-<script>
-(function(){
-const name=document.getElementById('reporterName'),anon=document.getElementById('isAnonymous'),msg=document.getElementById('fullMessage'),count=document.getElementById('charCount');
-function sync(){name.disabled=anon.checked;if(anon.checked)name.value='';}
-anon.addEventListener('change',sync);sync();msg.addEventListener('input',()=>count.textContent=msg.value.length);
-})();
-</script>
 </body>
 </html>
